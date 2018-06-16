@@ -1,0 +1,201 @@
+############
+ Pandas 
+###########
+	from pandas import Series, DataFrame
+	import pandas as pd
+
+	Series:
+	创建：obj = Series([2,3,1,4],index=['a','b','c','d'])
+		  obj.index 返回index列表
+		  obj.index = [??] 修改index列表
+		  obj.values 返回值
+		  obj = Series(dict) 可将dictionary直接转换为Series
+	索引：index索引：obj['a']
+		  序号索引 ：obj[0]
+	DataFrame:
+	创建：DataFrame(data,columns=['a','b','c'],index=[???])
+		  默认输入参数第一个为data，第二个index，第三个columns
+		  .index 返回index列表
+		  .columns 返回列列表
+	查看：df.index, df.columns 查看index 与column
+		  df.values 返回里面的值，numpy array类型 
+		  df.head(n),df.tail() 返回头、尾几行，默认为5
+		  df.describe() 返回各列的统计值（count,平均值，标准差，最大最小值）
+		  df.info()     查看各列空缺值情况
+		  df.index.is_unique  判断index是否唯一
+		  df.hist('a') 可快速查看某列的分布情况 
+	索引：df.colname 或 df['colname'] 可以索引列,返回Series 可用list()转换为list
+						df[['col1','col2','col3']] 返回DataFrame
+		  df[1:3], df[index1:index5]  索引指定行，必须有：
+		  df[[1,3,4]] 通过指定列号索引列
+		  df.loc[2,'id']   行通过index 列通过列名索引
+		  df.loc[3:6,['id','name']] 选择多行多列
+		  df.iloc[1:3,2:4] 通过行列号索引只能输入数字
+		  df.ix[2:3,1:5]   索引行优先通过index，如果index为字符串而输入为数字的话可通过数字的行号索引；列可以用列号和名称
+	复制：aa = df.copy()  复制DataFrame 此后更改aa对df不影响
+===========
+SELECT
+===========
+	df[df.A > 0]   类似  SELECT * FROM df WHERE A > 0
+		  多重选择  df[(df.A>3) & (df.A<5)]
+	      isin(): df[df.A isin(['one','two'])] 类似
+				  SELECT * FROM df WHERE A in ('one','two') 
+==========
+Sort
+==========
+	df.sort_index(axis=0/1,ascending=Fause/True)  根据index或column排序
+	df.sort_values(by='colname',ascending=??)  根据某列值排序
+	df.sort_values(by=['cola','colb'])  多轴排序
+	S.sort_index()
+	S.sort_values() 
+	df.rank() 返回每列sort后的排名
+
+==========
+修改
+==========
+	Reindex: 重新设置index：df.reindex(new_index)或df.reindex(columns=new_col)
+	插入列： s1 是一个Series df['E'] = s1
+	删除列： df = df.drop('colname',axis=1)
+			 或 del df['colname']
+	删除行： df = df.drop('index_name') 
+			
+	更新值： 使用df.at 和df.iat 指定位置更新值。用法与df.loc  df.iloc leisi .
+	去除有NaN的行：df.dropna(how='any')
+	对NaN进行填充：df.fillna(value=5)
+	COUNT: len(df), df.shape[0]
+	更改列名：df.rename(columns={'oldname':'newname','old1':'new1'},inplace=True)
+	one hot encoding: df.dummies(data, columns=[col1,col2...]) 
+					  把col1 col2 的内容进行one hot encoding
+
+	
+===============
+GROUP BY
+===============
+	df1 = df.groupby('col1') 或 df1 = df.groupby(df['col1'])
+	返回DataFrameGroupby 类型，可用.size()计算每组group的数据量
+		可使用.sum() .mean()  .max()  .min()
+===============
+UNIQUE
+===============
+	S.unique() 提取S中不重复的值，返回array
+	df['colname'].value_counts() 返回df的colname列中不同的alue出现的次数。normalize=True返回百分比
+			     默认不统计NaN值，可加参数dropna=False 统计NaN值
+==============
+数据聚合
+==============
+	df.groupby('col1')['col2','col3'].agg({'col4':np.mean,'col5':np.size})
+	df.groupby('col1')['col2','col3'].agg(['min','max'])得到分别对2，3列求最小、最大值，得到4列
+	可使用的函数操作包括：min,max,mean,median,std,var,**,
+		也可用.apply(func) 自定义函数
+	.agg()合并列
+	.transform()???
+
+===============
+string methods
+===============
+	对于字符串类型的列，pandas有一系列命令可以处理：df['colname'].str.???调用string methods
+	lower() 
+	upper()
+	len()
+	strip(),lstrip(),rstrip()
+	replace('str1','str2') replace str1 with str2
+	split('str') split string with str
+	df['col1'].str.cat(df['col2'],sep=' ') cancat two string columns with sep
+
+===============
+datetime methods
+===============
+	pd.to_datetime(df['datetimecol']) 可将符合datetime格式的string转换为datetime格式
+	对于datetime类型值，pandas有一系列命令可处理: df['colname'].dt.???
+	
+
+
+
+
+===============
+计算
+===============
+	df.mean()  计算每一列平均值
+	df.mean(1) 计算每一行平均值
+	df.max()  df.min() 返回每列最大、最小值
+	df.idxmax()  df.idxmin()  返回每列最大、最小值所在的index
+	df.cumsum() 计算每一列向下的累积值
+	df可直接使用的函数还包括：
+		count,argmin,armgax,quantile,sum,median,mad,var,std,skew,kurt,
+		cummin,cummax,cumprod,diff,pct_change 
+		具体描述查询《Python for data analysis》 page 139
+	df.aplly(lambda x:x.max()-x.min())  用于较复杂函数，min，max等简单函数可直接算
+		df.max()-df.min()   <==>  df.apply(lambda x:x.max()-x.min)
+		df.max(axis=1)-df.min(axis=1) 可用于对列操作
+	df.applymap(function)  对df内每个元素实施function运算 类似S.map(function)
+	S0.corr(S1)  S0.cov(S1)  计算S0，S1的correlation 和 covariance
+	df.corr()  df.cov() 计算df每列之间的 correlation 和 covariance矩阵
+
+===================
+NaN
+===================
+	NaN表示not a number，可用np.NaN生成，和python自带的None作用一样
+	df.isnull()返回True/False列表
+	df.fillna(val) 将df中的NaN值填充为val,有method选项提供更加灵活的应用
+	df.fillna({col1:val1,col2:val2}) 对不同列的NaN填充不同值
+	S.dropna() 去除NaN的值
+	df.dropna(how='all'/'any') 删除全为NaN的行/有任意NaN的行
+	df.dropna(thresh=n) 至少有n个非NaN数据则保留
+	df = df.dropna(subset=['price']) 指定某列(要重新赋值，不然不会改变) 
+==================
+多重index/columns
+==================
+	df.index = [[index1],[index2]] 可以设置多重index，columns同理
+	多重index的S可以用unstack()化解为df，df可用stack()堆叠为S
+	df.index.names=[],df.columns.names 可以为不同层的index设置名称
+	df.swaplevel('lev1','lev2') 可以交换两层index位置
+	df.sortlevel(i) 根据不同level的index排序
+	对不同level运算 df.sum(level='lev2')
+	df.set_index([col1,col2]) 将数据中的某些列设为index
+	df.reset_index() 则把已有的index化为数据，建立新的index
+===================
+Read from excel
+===================
+	xlsx 文件：handle = pd.ExcelFile(filename)
+			   data = handle.parse('sheet1',index_con = None,na_value=['NA'])
+		   或：data = pd.read_excel('filename','sheet1',index_con....)同上
+	csv  文件：data = pd.read_csv(filename,sep = '??')
+			   可用参数：
+				index_col=['key1','key2']			 
+				names = ['a','b','c'] 设定读取后的column name
+				header = n  取第n行作column name
+				skiprows=[m,n,p] 跳过第几行
+				skiprows=n  跳过前n行
+				na_values=['str1'] 或 {'col1':'str1'} 当文件为str1时读取为NaN 
+				nrows = n 只读取n行数据
+
+	others	  : data = pd.read_table(filename,sep = '??'
+	
+	超大文件处理：使用chunks = pd.read_csv(filename,iterator=True,chunksize=???)
+				  读成chunks，在用df=pd.cancat([chunk for chunk in chunks], ignore_index=True)	将多个chunk链接起来
+
+==================
+画图
+==================
+	对于某列数据，如果是不同label,可用count = df.<column>.value_counts()统计不同label数据，然后用count.plot(kind='bar') kind 还可以为pie
+
+
+==================
+Read from database
+==================
+	import MySQLdb as mdb
+	import pandas as pd
+	con = mdb.connect('server','username','password','database')
+	df = pd.read_sql('sql select command',con = con)
+
+============
+Write files
+=============
+	write to CSV file: pd.to_csv('name') 也可加入sep='??'指定分隔符 
+		If don't save columns or index,use header=False or index=False
+	df.to_csv('filename',cols=['col1','col2']) 指定存某些列
+
+============
+日期
+============
+	pd.data_range('1/1/2001',periods=11) 生成日期序列，共11天

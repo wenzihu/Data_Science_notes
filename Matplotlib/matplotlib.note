@@ -1,0 +1,46 @@
+matplotlib note
+
+
+设置默认字体，字号，线宽
+	import matplotlib
+	matplotlib.rc('xtick',labelsize=30)
+	font = {'family':'normal',
+			'weight':'boad',
+			'size': 30}
+	matplotlib.rc('font', **font)
+	matplotlib.rc('lines', lw=2)
+
+基本：
+	网格: plt.grid(True)
+	X,Y轴限制: plt.axis([xmin,xmax,ymin,ymax])
+	线宽: plt.plot(x,y,lw=??)
+	Legend:  plt.plot(x,y,label='????')
+			 plt.legend(loc='??')  ??=best 自动
+									  upper left/ right
+									  lower right/ center right
+									  
+	Marker: plt.plot(x,y, marker='o',
+						  markersize=5,
+						  fillstyle = 'full',
+						  markeredgewidth=0.0)
+	Date x-axis: plt.gcf().autofmt_xdate()
+
+Hist:
+	plt.hist(data,
+			 bins=[10,20,30],	
+			 rwidth=0.4,		# 间隔
+			 alpha=0.5)			# 透明度
+	多组数据用:plt.hist([data1,data2,data3],....)
+
+Bar:
+	plt.bar(x,y,
+			width=0.4,
+			bottom=??)  stack时使用
+	plt.xticks(x,[label1,label2,...])
+	多组：width = 0.2
+		  fig.ax = plt.subplots()
+		  plt.bar(pos1,					   data1,width, label='??')
+		  plt.bar([p+width for p in pos1], data2,width, label='??')
+		  ax.set_ylabel()
+		  ax.set_xticks([p+1.5*width for p in pos1])  指定位置
+		  ax.set_xticklabels(labels)

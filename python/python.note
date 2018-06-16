@@ -1,0 +1,611 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Python基础：
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	单行注释：# 
+	多行注释：待注释句段使用三个但引号包含'''?????????'''
+	三引号也可在print中多段打印
+	dir(??)可查看一个类中可用函数  
+	dir()  列出当前有的变量
+	type(？？)查看变量类型
+	help（name.func）可查看某类中某函数作用
+	print 时 可使用%d %s做占位，后面跟要print的东西
+	例如 a = 'a string'    b =  6
+		 print  " I want to print %s and %d" %(a,b)
+	若使用%r占位，则无论类型是否匹配都进行print
+	也可使用c = "the number is %d"%a  这样给c赋值，得到的为string
+	print 语句最后加逗号“，”可使下一句print时不换行
+
+	使用argv参数在运行程序时输入参数
+	from sys import argv
+	script, first ,second = argv
+	运行参数时需要输入2个参数才可能正确运行，python  ?？.py  1st  2nd
+	script 存储文件名，first 存储1st，second存储2nd
+
+	a = raw_input(“dfajl:”) 用户输入字符串，存在a中，如果需要数字在后面用int（a）转换    	
+		当用户没有输入时len(a)==0，可以用此命令判断是否有继续输入
+
+ 	显示系统时间：
+	import sys
+	from datetime import datetime
+	start = datetime.now()  #记录系统时间
+	
+	调用shell命令：
+	import os
+	os.system('command')
+
+	暂停：
+	import time
+	time.sleep(??) ??为秒
+
+	条件语句：
+		if condition1 : statement1 
+		elif condition2: statement2
+		else: statement3
+	循环语句：
+		while condition:   #condition 为 True or False
+			statement1
+			statement2
+		或 while condition: statement
+
+		for  a in b: statement
+		或  for a in b: 
+				statement1
+				statement2
+		下一循环 continue  跳出循环  break
+	运算符：% 取余数   // 取商的整数  **取幂
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%
+Python 中的import
+%%%%%%%%%%%%%%%%%%%%%%%%%
+	使用import载入已有module，例如 import math 和 import os
+	也可自己简历module，创建modulename.py 在里面简历def a  def b等函数
+	在import modulename后即可使用 modulename.a 和 modulename.b 调用相关函数。
+	使用from modulename import a,b 也可从module中载入函数，且调用时可以直接使用	a(),b()。
+	使用import module as name 即可为module在程序中的使用重命名name.func1()
+	from .A import B  从本目录下A文件 ，导入B
+	from .. C import D  从父目录下C文件 导入 D
+	from . import E,F,G  从本目录下导入 E，F，G
+	print np.__path__ 查看包的路径
+	print np.__version__ 查看包的版本 （有时有多个版本python和多个版本包）
+	
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+Python中的string操作
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%5
+	string[m:n]只string中从第m个字符到n-1个字符，并不是到第n个字符。
+	也可用string[:n]提取前n个字符或string[n:]提取第n个字符到最后一个字符。
+	String[-1]表示最后一个，[-2]表示倒数第二个
+	可用for ??? in string: 对string中的每个字符做处理
+	in还可以用做判断，'string1' in 'string2' 判断string2中是否有string1，返回true或false。
+  string相关函数：
+	string.strip()   string.lstrip()   string. rstrip()  # 削去字符串中两端的空格（换行符）
+	string.startswith(' ??? ')  # 查看string是否以'???' 开头，返回true或false
+		通常在for中使用 if string.startswith('???'): …… 对感兴趣的字符串进行操作
+		也可用 if not string.startswith('???'): continue 跳过不感兴趣的行
+	string.endswith('???') #查看string是否以？？？结尾，特别适合判断文件类型
+	string.find('???') # 寻找string中第一个出现的'???' 字符位置，返回位置
+	string.find('???' , pos )  # 在pos位置后寻找'???' 字符位置，返回位置
+	string.replace('a','b')  # 将string中的a换为b
+	使用dir(string)即可查看所有的可用函数
+	string不可改写，如果要改写必须建立新的string。
+	string.split()    # 将一个string根据空格分隔为一个list里面的多个string
+	.split() 函数默认使用空格切分，但也可自行设置string.split(';')即可使用分号切分
+
+%%%%%%%%%%%%%%%%%%%%%
+Python文件：
+%%%%%%%%%%%%%%%%%%%%%%
+	========	
+	工作路径
+	========
+	import os
+	cwd = os.getcwd()		# 获取当前文件所在目录
+	改变工作目录：os.chdir('D:\\???\\???')
+	files = os.listdir(cwd)   #把当前目录下的文件名做成list，即可用for挨个过
+	使用filename.endswith('???') #即可判断文件名是否以？？？
+
+	=========	
+	系统路径：
+	=========
+	sys.path
+ 	增加系统路径：sys.path.append('path')(一次性)
+	永久增加系统搜索路径：
+	1. 在disk-packages文件夹内增加一个文件，文件内写入要增加的路径
+	    linux下disk-packages文件夹在/usr/local/lib/python2.7/
+	    文件名可写jylipy.pth  内容/home/wenzihu 即可
+	2. 在.bashrc中修改
+	export PYTHONPATH=$PYTHONPATH:/usr/local/lib/python2.7/site-packages
+	
+	=========	
+	读取文件:
+	=========
+	handle = open('filename','mode')  # mode 默认为r，只读模式，可以为w
+	for line in handle: 即可对文件中每一行做处理  注意每一行最后有\n换行符
+	\n算一个字符
+	对line可使用line.rstrip()削去本行最右的换行符和空格
+	也可使用line.lstrip('???')或.rstrip('???')削去最左或最右？？？的字符串
+	打开文件后可使用data = handle.read() 将打开文件所有内容全部读进data中
+	也可以handle.readline()逐行读取文件。
+	handle类似指向文件数据头的指针，运行一次readline()后指针就指向下一行。
+
+	写文件：
+	fp = open('filename','w+')  #以写入方式打开，如果文件不存在则创建
+	fp.write(str) #将str写入文件中，需要人为加入'  ' 和'\n' 实现空格和换行
+	fp.write()只能写入字符型，如果是数字需要使用str()转化为字符型
+	数字转化字符时可以使用str.format("{0:10f}",value)保证得到的字符保留10位小数
+
+%%%%%%%%%%%%%%%%%%%%%%%
+Python  List
+%%%%%%%%%%%%%%%%%%%%%
+	类似c++中的vector 一个list中可以有各种数据类型，可修改
+	a=list() 创建新的list，或使用 a = [] 创建
+	range（n）建立list，[0,1,2,3 , ... , n-1 ]包含n个数据
+	list 可相加 [1,2,3] + [4,5,6] = [1,2,3,4,5,6]
+	list[m:n]用法与string类似
+	filter: 对list中内容过滤 
+			filter(lambda x:x>3, list_a) 保留list_a中满足lambda的元素
+			filter(None, list_a) 取出list_a中None元素
+	map: 对整个list进行某个函数运算
+			map(func,iterable)
+		    例如: a=[1,2,3,4,5]   y=map(lambda x:x**2, a)
+   list相关函数：
+	.append()  #在末尾增加元素
+	.count()
+	.extend()
+	.index()
+	.insert()
+	.pop()
+	.remove()
+	.reverse()
+	.sort()    #对list进行排序，可以对不同类型的元素排序，原则？ASCII？貌似不是
+	在计算min（list）或max（list）时应该是按照sort顺序排序的。
+	注意：list函数与string函数不同: 
+string本身不能修改，因此需要另行创建新的string，例如：string2 = string.fun()
+list本身可以修改，因此不需要创建新的list（不能创建），只需list.func()即可实现函数功a
+	在一个list1中寻找另一个list2中元素的位置
+		d={k:v for v,k in enumerate(list1)}
+		print(*(d[k] for k in list2))
+
+%%%%%%%%%%%%%%%%%%%%%%
+Python dictionary
+%%%%%%%%%%%%%%%%%%%%%%%%
+	key 和 value配对存储，a = dict() # 创建空的dictionary 或使用a = {}
+	使用dict['key'] = value增加内容
+	统计时常用aaa['key']= aaa.get(key,0)+1 即查看aaa中是否有key，如果没有则置零后加			一，如果有则取值后加一
+	使用dict.keys()生成key的list，用dict.values()生成value的list，或使用dict.items()
+	在dict中循环，使用for key in dict 之后使用dict[key]调取相应的value
+	也可食用 for aaa,bbb in dict.items()，即可让key和value同时在dict中轮询
+
+%%%%%%%%%%%%%%%%%%%%%
+Python tuple
+%%%%%%%%%%%%%%%%%%%%%5
+	和list很像，区别: 不能更改，使用（）表示。
+	利用dir（tuple）即可查看有何可用函数（只有两个函数）
+	优点：运算速度快，对于不会变的列表或暂时使用的变量建议用tuple
+	可用（a,b）=(1,2)同时对a，b赋值（只能最多2个）
+	tuple可以比大小 (2,3,4)>(2,5,4)会返回fault
+	使用a= dict.items()返回list a 后，可以对a进行sort，sort by key
+	内置函数sorted（）输入list，输出sort后的list
+	若要sort by value，可以造一临时list
+	for k,v in c.items()
+	temp.append((v,k))   ，之后使用temp.sort(reverse=True)从大到小排序
+	上述for语句可简写为[(v,k),for k,v in c.items()]
+	类似的 [int(k) for k in ['1','2','3']]可将string的list转化为int的list
+
+%%%%%%%%%%%%%%%%%%%%%%%%
+Python set
+%%%%%%%%%%%%%%%%%%%%%%%%%
+	Collection of unique elements.
+	a={1,2,3,4,4,4,5,5} 返回{1,2,3,4,5}
+	增加元素; a.add(6)
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+regular expresion
+%%%%%%%%%%%%%%%%%%%%%%%%5
+	Quick Guide
+	可使用re.search()返回true或faulse	
+	可使用re.findall()提取
+	-----------------------------------------------------------------
+	|   ^		|Match the beginning of a line			|
+	-----------------------------------------------------------------
+	|   $		|Match the end of the line			|
+	-----------------------------------------------------------------
+	|   .		|Match any character 任何字符			|
+	-----------------------------------------------------------------
+	|   \s		|Match 空格					|
+	-----------------------------------------------------------------
+	|   \S		|Match 非空格					|
+	-----------------------------------------------------------------
+	|    *		|任何多次（greedy）找到符合的最大范围		|
+	-----------------------------------------------------------------
+	|   *?		|任何多次（non-greedy）最小范围			|
+	-----------------------------------------------------------------
+	|   +		|大于一次（greedy）				|
+	-----------------------------------------------------------------
+	|   +?		|大于一次（non-greedy）				|
+	-----------------------------------------------------------------
+	|   [aeiou]	|Match a single character in the listed set	|
+	-----------------------------------------------------------------
+	|   [^XYZ]	|Match a single character not in the listed set	|
+	-----------------------------------------------------------------
+	|   [a-z0-9]	|The set of characters can include a range 	|
+	-----------------------------------------------------------------
+	|   (		|开始提取					|
+	-----------------------------------------------------------------
+	|   )		|结束提取 					|
+	-----------------------------------------------------------------
+	re.search()返回true 或faulse，通常用在if 判断语句中 re.search('???',line)
+	re.findall() 返回符合要求的字符串组成的list，re.findall('?????',line)
+	若想在其中表示$，可使用\$
+
+%%%%%%%%%%%%%%%%%%%%%%%%5
+Python socket
+%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	import socket
+	mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # 声明socket，定义类型
+	mysock.connect(('www.py4inf.com',80))				# 建立连接
+	mysock.send('GET http://www.py4inf.com/code/romeo.txt HTTP/1.0\n\n')  # 向server发送消息，从指定地址get信息，并指定为http格式
+	data = mysock.recv(512) # 读取从server发送过来的信息，存到data中
+	mysock.close()   工作完成后关闭socket
+urllib 比socket更高等的库 
+	import urllib  # 载入库
+	fhand  = urllib.urlopen('http://www.py4inf.com/code/romeo.txt')
+	for line in fhand 
+		print line.strip()
+
+	Beautifulsoup 专门分析html的库
+
+Python XML
+	import xml.etree.ElementTree as ET
+	data = '''
+	?????
+	'''
+	tree = ET.fromstring(data)
+	tree.find('tag').text
+	tree.find('tag').get('attribute')	
+	或使用tree.findall('users/user')找到users下面 user的内容，放到list里（xml的list）
+	从网络读取数据的例子见geoxml.py
+Pyhon json
+	import json
+	data = '''{?????????????????????????????}'''
+	info = json.loads(data) 直接返回dictionary 按照 dict用法提取
+	若data = '''[????????????]''' 返回list
+	从网络取数据时：
+	uh = urllib.urlopen(url) 返回handle
+	data = uh.read()  读取数据，网页原始数据类型
+	info = json.loads(data) 将读取的json数据转换为list或dict
+	print json.dumps(js, indent=4)  将杂乱的json代码清晰打印出来
+	有时需在指定网址后增加用户输入内容时，使用
+			url=serviceurl+urllib.urlencode({'aaa':'bbb','ccc':'ddd'})注意serviceurl最后加'？'
+
+class
+	python中可以自行定义class，里面可包括变量和函数。函数中使用self表示自己
+	例如 class A
+			x = 0
+			def funcA(self)
+				self.x = 1
+ 	在使用instance，INS调用funcA函数时，self.x 即表示INS.x
+ 	继承   声明子类时  class Sonclass(parentClass)
+
+SQL
+	创建新的表
+	CREATE TABLE Users(             表格名称 User
+		name VARCHAR(128),		  表格内容 第一列 name 最长 128字节
+		email VARCHAR(128)		  表格内容 第二列 email 最长 128字节
+		name项也可使用 TEXT  UNIQUE 避免重复
+		(在使用UNIQUE时，插入数据使用INSERT OR IGNORE INTO ......)
+		（使用IGNORE时id会增加）
+	)
+	或简化为CREATE TABLE Users(name text, email text) 定义数据类型，不一定定义长度
+	CREATE TABLE IF NOT EXIST User()    可避免每次启动程序时重新建立
+	同样也可在CREATE之前使用DROP TABLE IF EXISTS Users删除之前的表
+	插入项
+	INSERT INTO Users(name,email) VALUES ('Kris','ddds@umic.edu')  
+	删除项
+	DELETE FROM Users WHERE email='ddds@umic.edu'
+	更新项
+	UPDATE User SET name = "Charlse" WHERE  email = 'csev@usmich.edu'
+	选择项
+	SELECT * FROM Users
+	SELECT * FROM Users WHERE email = 'csev@umich.edu'
+	排序
+	SELECT * FROM Users ORDER BY email
+	SELECT email count FROM Counts ORDER BY  count   DESC  LIMIT 20
+	      选择的列         表     排序   排序项   降序  显示多少
+%%%%%%%%%%%%%%%%%%%%%%
+从python操作数据库 
+%%%%%%%%%%%%%%%%%%%%%
+	import sqlite3 # 载入sqlite库
+	conn = sqlite3.connect('emaildb.sqlite')    # 建立连接
+	cur = conn.cursor()   # 建立指针
+	cur.execute('''??????''')    # 通过指针操作数据库 单引号，双引号，三引号貌似没区别
+	conn.commit()    # 保存所做的更改
+	cur.close()        # 关闭指针
+	从python向sqlite传送数据时使用tuple
+	例如
+	t = ('RHAT',)
+	c.execute('SELECT * FROM stocks WHERE symbol=?', t)
+	多行多列赋值时
+	purchases = [('2006-03-28', 'BUY', 'IBM', 1000, 45.00),
+               ('2006-04-05', 'BUY', 'MSFT', 1000, 72.00),
+               ('2006-04-06', 'SELL', 'IBM', 500, 53.00),
+              ]
+	c.executemany('INSERT INTO stocks VALUES (?,?,?,?,?)', purchases）
+	在使用c.execute('SELECT............')选择一部分行后，可用c.fetchone()[0]获取第一行数据
+												或c.fetchall()获取所有数据为list
+	或使用for line in c.execute('SELECT ...............') 在得到的list中循环
+	若要执行多行sql命令还可使用c. executescript ('?;??;?')每条命令之间使用分号隔开
+
+%%%%%%%%%%%%%%%
+设计database
+%%%%%%%%%%%%%%%
+	设计几个table，以及他们之间的附属关系 track--album--artist
+	每个table需要有一个id(Primary key) 父表中有foreign key 指向子表中的id，logical key则为表中的主要内容，通过外部查找的内容。
+	设计好database内容后分别建立table。建立id时选择NOT，PK，AI 或使用命令行
+	 id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+	 name TEXT
+	这样id会自动增加
+	先建立子表，再建立父表。父表中需要建立子表的索引id，如表track中有album_id。
+	表格简历好后使用JOIN将父表与子表中相关项结合起来
+	SELECT Track.title, Artist.name, Album.title, Genre.name FROM Track JOIN Genre JOIN Album JOIN Artist ON Track.genre_id = Genre.id AND Track.album_id = Album.id and Album.artist_id = Artist.id
+	对于多对多的关系，建立一个table连接两个table，
+	CREAT TABLE Member(
+		user_id   INTEGER
+		course_id INTEGER
+		PRIMARY KEY (user_id, course_id)
+	)    
+
+%%%%%%%%%%%%%%%%%%
+numpy
+%%%%%%%%%%%%%%%%%%	
+	import numpy as np  #最常用的import方法
+
+	==================
+	基础操作
+	arr.ndim 向量维度
+	arr.shape 形状（m,n）
+	arr.size  元素数
+	arr.dtype 数据类型
+	arr.itemsize 字节数？？
+
+	===============
+	创建array：
+	np.array()，主要功能：可将list转换为array形式, 将已有的数据转换为array格式
+	np.ones(), np.zeros(), 创建全1或全0数组，使用np.ones((3,4))创建多维数组。
+ 	np.eye(n), 创建对角矩阵
+	np.arange(min,max,step)  创建升array,从min开始，增加step，小于max
+	np.linspace(start,end,num) 创建arr，起始值start，结束值end，共num个值
+	np.fromfile 从文件中导入
+	np.fromfunction(function,(n1,n2))  需要先指定函数(如x+y)，根据函数生成
+	---------------------
+	矩阵复制
+	b=a.view()  创建矩阵的link，修改b，a会跟着改变
+	可用b.flags.owndata查看是否是link
+	b=a.copy() 完全复制，互不影响
+	---------------------
+	dtype数据类型，可通过np.array([1,2,3],dtype=np.???)指定
+	主要的数据类型有：int8,16,32,64, uint8,16,32,64
+					  float16, 32, 64,128
+					  bool, object, string_, unicode_
+	可用a.dtype来查询, 用a.astype(np.???)转换格式	
+	使用arr_part = arr[m:n]选取向量内部分数据，此时更改arr_part会直接更改arr的值
+	如果想要对向量进行拷贝，需要b=arr[m,n].copy()
+	numpy中矩阵元素的索引方法于matlab类似，只是以0开头
+	arr[::-1]将arr倒序
+	numpy向量可进行的操作：
+	.reshape(?,?)	改变形状（不改变自身）	b = a.reshape(?,?)
+	.shape = (?,?)  也可改变形状（改变自身）a.shape = (?,?)
+	.resize(?,?)	改变形状（改变自身）	a.resize(?,?)
+	.T				转置
+	.sum()
+	.mean()
+	.sort()
+	.dot(arr) 和另一矩阵相乘
+	.ravel() 矩阵扁平化
+	.diagonal() 取对角线，可加入offset=？参数
+	.flat[n] 将矩阵扁平化后取第n个数，n也可为[?,?,?]
+	.flat = ? 将矩阵整体置为？
+	------------------------
+	np.mat() 可将arr形式变量转换为mat型，可用操作相同，区别？？
+	.item()  将单个numpy向量格式的值转换为python格式
+
+	=================
+	矩阵组合
+	np.hstack((arr1,arr2))	矩阵水平组合
+	np.vstack((arr1,arr2))	矩阵垂直组合
+	np.column_stack((arr1,arr2))  = np.vstack((arr1,arr2)).T
+	np.dstack((arr1,arr2))  二维矩阵组合为三维矩阵
+	np.newaxis  增加一个维度，b = a[:,np.newaxis] 把a增加一个维度
+	np.squeeze() 减小维度，去除值为1的维度， 也可用arr.squeeze(),不改变自身
+	np.swapaxes(arr,n1,n2) 对arr交换维度，
+			也可arr.swapaxes(n1,n2).对于二维矩阵，相当于.T。
+	-------------------
+	矩阵拆分
+	np.hsplit(arr,n)  把矩阵水平平均拆分为n份
+	np.hsplit(arr,(n1,n2,n3)) 分别在第n1,n2,n3后拆分,若只分为2份用(n1,)
+	np.vsplit  用法类似
+	np.dsplit  沿着第三轴拆分
+	np.array_split(arr,n,axis = ?) 高阶用法，指定拆分轴
+	
+	=================
+	矩阵运算
+	矩阵加减，点乘，点除可直接运算
+	矩阵相乘np.dot(arr1,arr2)
+	np.trace(arr) 计算对角元素和
+	------------------------
+	更复杂的矩阵运算包含在numpy.linalg中
+	diag  取矩阵对角元素，或将一维向量作为对角元素创建矩阵
+	det	  计算矩阵行列式
+	eig   计算方阵本征值和本征向量
+	inv   逆矩阵
+	pinv  Moore-Penrose伪逆
+	qr    qr分解
+	svd   奇异值分解
+	solve 解线性方程组  Ax=b A为方阵
+	lstsq 计算Ax=b最小二乘解
+
+	================
+	简单函数：(一元)
+	np.sqrt()开方
+	np.square() 平方
+	np.exp()指数
+	np.fabs()取模
+	np.log() 对数
+	np.sign()取符号
+	np.ceil()
+	np.floor()
+	np.rint()四舍五入
+	np.modf()分别返回整数与小数
+	np.isnan(), np.isfinite, np.isinf
+	np.cos(), np.sin(), np.cosh(), np.sinh(), np.tan(), np.tanh()
+	np.arccos(), np.arccosh, np.arcsin, np.arcsinh, np.arctan, np.arctanh
+	np.sort()  排序
+	np.unique(arr) 排除重复值
+	np.ravel(arr) 矩阵扁平化
+	---------------------------
+	简单函数（二元）
+	np.add, np.subtract, np.multiply, np.divide, np.floor_divide(丢弃余数)
+	np.power(a,b)  计算a的b次方
+	maximum, fmax 元素级的最大值   fmax忽略NaN
+	minimun, fmin
+	np.mod  余数
+	intersect1d(x,y) 返回公共元素
+	union1d(x,y) 返回并集
+	in1d, setdiff1d, setxor1d 两个集合关系的函数
+	np.choose(labels,values) #Choose value from values with index in labels
+
+	=======================
+	生成网格
+	arr = np.arange(-5,5,0.1)
+	xx,yy = np.meshgrid(arr,arr)
+	zz=f(xx,yy)
+	np.imshow(zz) 进行显示
+
+	=======================
+	条件选择
+	np.where(condition, x,y) 其中condition为bool，True时返回x，False时返回y
+	对任意np向量，np.where(arr>0,arr,0)即可将arr中负数置零
+
+	==========================
+	统计方法，既有单独函数，也可作为向量的运算方法
+	sum	可用np.sum(arr)或arr.sum()
+	mean
+	std,var 标准差和方差
+	min,max	
+	argmin,argmax	最大值和最小值的索引位置
+	cumsum  累积和
+	cumprod	累积乘积
+
+	===============================
+	文件操作：
+	np.save('name',arr) 向量存储，npy格式
+	np.load('name.npy') 向量载入
+	np.savez('name.pyz',a=arr1,b=arr2)  保存多个向量。
+	使用arch = load('name.pyz')读取后，使用a=arch['b']取得arr2
+	-------------------------
+	文件读取：
+	np.loadtxt(name, delimiter = ',') 直接读进逗号分割的数据 
+
+	=============================
+	随机值生成：np.random
+	seed(n) 设置随机种子
+	permutation: 随机排列
+		a=np.random.permutation([1,2,3,4,5])
+		或np.random.permutation(10) <==> a=np.arange(10), np.random.permutation(a)
+	shuffle: 随机打乱
+		a=np.arange(10)  
+		np.random.shuffle(a)  
+		不能用a=np.random.shuffle(a)
+	, rand, 
+	randint(start,end, num): 生成num个从 [start 到 end） 的随机数 
+	randn
+	
+	binomial
+	normal
+	beta
+	chisquare, gamma, uniform
+
+	
+#######################
+sklearn
+######################
+	=====================
+	内置数据：
+	===============
+		from sklearn import datasets
+		iris = datasets.load_iris()
+		digits = datasets.load_digits()
+		X = iris.data 待拟合数据 
+		y=iris.target 学习目标
+
+	===============
+	数据预处理
+	=============
+		from sklearn import preprocessing
+
+	==============
+	算法：
+	==============
+	Regression:
+	------------
+	线性回归：from sklearn.linear_model import LinearRegression
+	岭回归  ：from sklearn.linear_model import Ridge   #参数alpha，高鲁棒
+	Lasso   ：from sklearn.linear_model import Lasso   # 消减参数回归，权重可为0
+	朴素Bayes:from sklearn.naive_bayes  import GaussianNB
+	K-near  ：from sklearn.neighbors	import KNeighborsClassifier
+	决策树  ：from sklearn.tree			import DecisionTreeClassifier
+	神经网络：from sklearn.neural_network import BernoulliRBM
+	-------------------------------
+	Classification
+	------------------
+	逻辑回归：from sklearn.linear_model import LogisticRegression
+			  参数penalty=l2 类似Ridge penalty=l1 类似Lasso
+	SVM向量机 from sklearn.svm			import SVC
+			  参数kernel='linear' 线性kernal
+					     'poly',degree=?  多项式kernal
+						 'rbf'    ???
+	--------------------------------
+	Clustering
+	---------------
+	K-mean	: from sklearn import cluster.KMeans  , model=KMeans(n_clusters=?)
+	Agglomerative: from sklearn import cluster.AgglomerativeClustering
+
+	=======
+	使用
+	=======
+	载入算法后，model = LinearRegression()
+						LogisticRegression()
+						SVC()
+						.......等等
+	model.fit(X,y)
+	模型参数
+		fit时设置model.set_params(?param=??).fit(X,y)  
+		或在定义模型时设置model = SVC(para?=??)
+	predict = model.predict(X)
+	model.coef_      输出拟合参数
+	model.score(X,y)	计算拟合分数，1完美拟合，2糟糕拟合，不线性
+
+	------------------
+	搜索最佳参数：
+	from sklearn.model_selection import GridSearchCV, cross_val_score
+	CS = np.logspace(-6,-1,10)
+	model = GridSearchCV(estimator=svc, param_grid=dict(C=Cs), n_jobs=-1)
+	model.fit(X,y)
+	model.best_score_  查看最佳score
+	model.best_estimator_.C  查看最佳参数
+	在设定model后也可直接 cross_val_score(model,X,y) 查看score列
+
+	=========
+	使用Pipeline组合模型
+	===========
+	from sklearn import linear_model, decomposition
+	from sklearn.pipeline import Pipeline
+	from sklearn.model_selection import GridSearchCV
+	logistic = linear_model.LogisticRegression()
+	pca = decomposition.PCA()
+	pipe = Pipeline(steps=[('pca',pca),('logistic',logistic)])
+	n_components=[20,40,64];Cs=np.logspace(-4,4,3) # 设置不同模型参数列表
+	estimator = GridSearachCV(pipe,dict(pca__n_components=n_components,logistic__C=Cs)		# 指定组合模型，指定参数列表进行最佳参数搜索
+	estimator.fit(X,y)
