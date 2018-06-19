@@ -56,6 +56,7 @@ Sort
 	Reindex: 重新设置index：df.reindex(new_index)或df.reindex(columns=new_col)
 	插入列： s1 是一个Series df['E'] = s1
 	删除列： df = df.drop('colname',axis=1)
+			 df.drop('colname',axis=1, inplace=True)
 			 或 del df['colname']
 	删除行： df = df.drop('index_name') 
 			
@@ -154,7 +155,7 @@ NaN
 	df.set_index([col1,col2]) 将数据中的某些列设为index
 	df.reset_index() 则把已有的index化为数据，建立新的index
 ===================
-Read from excel
+Files IO
 ===================
 	xlsx 文件：handle = pd.ExcelFile(filename)
 			   data = handle.parse('sheet1',index_con = None,na_value=['NA'])
@@ -171,6 +172,9 @@ Read from excel
 
 	others	  : data = pd.read_table(filename,sep = '??'
 	
+	pickle    : df.to_pickle(filename) # save dataframe to pickle
+			    df = pd.read_pickle(filename) # read dataframe from pickle 
+			
 	超大文件处理：使用chunks = pd.read_csv(filename,iterator=True,chunksize=???)
 				  读成chunks，在用df=pd.cancat([chunk for chunk in chunks], ignore_index=True)	将多个chunk链接起来
 
