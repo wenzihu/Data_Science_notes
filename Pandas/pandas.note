@@ -65,7 +65,7 @@ Sort
 	对NaN进行填充：df.fillna(value=5)
 	COUNT: len(df), df.shape[0]
 	更改列名：df.rename(columns={'oldname':'newname','old1':'new1'},inplace=True)
-	one hot encoding: df.dummies(data, columns=[col1,col2...]) 
+	one hot encoding: df.get_dummies(data, columns=[col1,col2...]) 
 					  把col1 col2 的内容进行one hot encoding
 
 	
@@ -203,3 +203,13 @@ Write files
 日期
 ============
 	pd.data_range('1/1/2001',periods=11) 生成日期序列，共11天
+
+============
+Featrue engineering
+============
+	For object columns with only two features, 
+		use df[col]=pd.factorize(col) to binarize this column.
+	For object columns with more than two features, use one-hot-encoding
+		cat_col = [col for col in df.columns if df[col].dtype == 'object']
+		df=pd.get_dummies(df,cat_col)
+
