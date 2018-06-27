@@ -1,0 +1,50 @@
+创建新的repo:	git init 
+拷贝已有repo:	git clone <path>
+查看repo状态:	git status
+查看log:		git log
+				git log --oneline	单行查看
+				git log --stat		修改文件 增减行数
+				git log -p			修改细节
+						-w			ignore white space
+				git log -p <SHA>	显示给定SHA之前的所有更改
+				git log --decorate  增加tag显示
+				git log --oneline --decorate --graph --all 显示所有branch树图
+
+查看最新更改:	git show			显示最新更改
+				git show <SHA>		显示指定SHA更改
+				也可用 -p --stat
+
+Staging:		git add <filename>	把指定文件加入stage
+				git add .			把所有文件加入stage				
+				git rm --cached	<filename>	从stage中删除，退回到untrack
+Commit:			git commit
+				git commit -m <note to be added>
+
+Diff:			git diff			查看还没stage的已修改文件
+
+ignore			.gitignore			有不想git管理的文件，把文件名放在
+									.gitignore 文件中，存入项目文件夹
+									此处还可用regular expression(大小写？)
+
+Tag				git tag -a v1.0		annotation tag
+				git tag -d v1.0		删除指定tag 
+				git tag				查看当前已有的tag
+				git tag -a <tagname> <SHA>	在之前的SHA里面增加tag
+
+Branch			git branch			显示所有branch
+				git branch <name>	新建branch
+				git branch <name> SHA  在之前的SHA处新建branch
+				git checkout <name>	切换不同branch
+				git branch -d <name>删除branch
+				git branch -D <name>没有merge，强行删除
+
+Remote			git remote add <name> <address>  # add address as name
+				git remote  # list all remotes in the system
+				git remote -v # list all remotes with addresses 
+				git remote rm <name>  # remove remote <name>
+				git remote rename <old name> <new name>
+Working on GitHub:
+	1. Create a empty repo under your account.
+	2. git remote add <remote_name> <link of you repo>
+	3. git push -u <remote_name> master
+	   note: if you have readme file already in github repo, use git push -f

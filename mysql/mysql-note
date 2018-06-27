@@ -1,0 +1,112 @@
+连接server数据库：mysql -h<host> -u<username> -p<password> 注：-h -u -p 后面没有空格
+连接本机数据库：mysql -hroot -p 输入密码
+显示信息：
+	SELECT @@hostname;	显示server名称
+	USE database1;		选择指定数据库 
+	SELECT database();	显示正在使用的database
+	SHOW WARNINGS;		显示警告信息
+
+	SHOW databases;		显示server上有的数据库
+	SHOW tables;		选择数据库后显示所有表
+	DESC table1;		查看表结构(类似：SHOW COLUMNS FROM table;)
+数据库： 
+	创建：CREAT DATABASE name;
+	删除：DROP DATABASE name;
+表：
+	创建表：CREATE TABLE name(col_name datatype, col_name1, datatype2);
+		若创建表时指定某列 NOT NULL则此列必须有值才行。
+			CREATE TABLE name(col1 datatype1 NOT NULL,
+							  col2 datatype2 NOT NULL)
+		在创建表格时可以指定默认值
+			CREATE TABLE name(col1 VARCHAR(10) DEFAULT 'unnamed')
+	删除表：DROP TABLE name;
+数据：
+	插入：INSERT INTO table(col1,col2) VALUE(value1,value2),(value3,value4);
+键：
+	主键：CREATE TABLE table(id INT NOT NULL, 
+							 name VARCHAR(10),
+							 PRIMARY KEY(id));
+		  可在主键后使用AUTO_INCREMENT 使其自动增加。
+		  可以直接在 id 一行最后写入 PRIMARY KEY 指定主键。
+
+数据类型：
+	CHAR(n)  固定长度字符串，长度不大于255。输入过长将被截断，输入不够补空格。
+	VARCHAR(n) 长度可变字符串，规定最大长度。
+	DECIMAL(n,m) n表示最大数据长度，m表示小数点后数据长度
+	  DECIMAL(5,2) 最大表示999.99 输入大于此值时默认设为999.99
+	FLOAT
+	DOUBLE 
+		区别：DECIMAL占用空间较大，但计算精确
+			  FLOAT/DOUBLE 空间小，但在7/15位会产生误差
+
+
+SELECT:
+	SELECT col1,col2 FROM table; 选取指定列  （SELECT *选取全部列）
+							    WHERE name='Dog';
+								WHERE id IN (1,2,4);
+								WHERE id BETWEEN 2 AND 6;
+								WHERE name LIKE "A%" ; 以A开头
+												"%A" ; 以A结尾
+												"%A%"; 包含A
+												不挑大小写
+								搜索这两个特殊字符可用\% 和\_
+												Note: %表示任意字符
+													  _表示单一字符
+										   也可用RLIKE+正则表达式
+								WHERE 条件A AND 条件B；
+								ORDER BY col1 ASC;  升序  
+											  DESC; 降序
+								GROUP BY col1; 分组
+								LIMIT ?；      前?项(也可指定起始值和选择个数)
+								LIMIT 10，20   从第11开始取20个（从0计算）
+	SELECT MAX()  FROM 
+		   MIN()
+		   AVG()
+		   SUM()
+	       COUNT()
+	
+	SELECT DISTINCT col1,col2 FROM  选取不重复的项
+	
+	SELECT col1 AS name,col2 AS age FROM.......     显示时使用重名名
+UPDATE:
+	UPDATE talbe SET col1=newvalue WHERE ???;
+
+DELETE:
+	DELETE FROM table WHERE ??;
+	DELETE FROM table;  !!!!危险 ，将删除全部数据
+
+File:
+	在sql中运行source filename.sql
+
+String Function:
+	SELECT CONCAT(col1,'string1',con2) FROM table;  选择后把字符串相连。
+	       CONCAT_WS(connector, col1,col2,col3)     在各列之间使用connector连接
+	SELECT SUBSTRING(string,start,end)   从指定字符串中提取字符，指定首尾位置
+										 若不指定末位直接提取到最后
+	SELECT REPLACE(string, part, replacement);使用replacement 替换string中的part
+	SELECT REVERSE(string);                   倒序
+	SELECT CHAR_LENGTH(string);         计算字符串长度
+	SELECT UPPER()/LOWER()
+
+
+Date Time
+	数据类型：
+		DATE：YYYY-MM-DD
+		TIME：HH:MM:SS
+		DATETIME: YYYY-MM-DD HH:MM:SS
+	产生函数
+		CURDATE() 产生当前日期 DATE格式
+		CURTIME() 产生当前时间 TIME格式
+		NOW()     产生当前日期时间DATETIME 格式
+	选取函数
+		DAY() MONTH() YEAR() HOUR() MINUTE() SECOND() 作用于已有的数据
+		DAYNAME() 返回星期几 MONTHNAME() 		
+		DAYOFWEEK() 返回1-7
+		DAYOFYEAR() 返回一年第几天
+	Format
+		DATE_FORMAT(date,format);  format 可以是各种选择的组合
+		例如：DATE_FORMAT(NOW(),'%Y %M %D - %W');详细见文档 
+	计算：
+		DATEDIFF(Day1,Day2) 计算Day1-Day2日期
+		DATE_ADD(DATE,interval n month/day/minute/second)
+		SELECT date1 + INTERVAL 1 MONTH + INTERVAL 2 DAY;
