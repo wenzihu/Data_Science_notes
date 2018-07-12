@@ -9,8 +9,25 @@ matplotlib note
 			'size': 30}
 	matplotlib.rc('font', **font)
 	matplotlib.rc('lines', lw=2)
+		.rc('font', size=???)          # controls default text sizes
+		.rc('axes', titlesize=???)     # fontsize of the axes title
+		.rc('axes', labelsize=???)    # fontsize of the x and y labels
+		.rc('xtick', labelsize=???)    # fontsize of the tick labels
+		.rc('ytick', labelsize=???)    # fontsize of the tick labels
+		.rc('legend', fontsize=???)    # legend fontsize
+		.rc('figure', titlesize=???)  # fontsize of the figure title
 
 基本：
+	多图: plt.figure()
+		  plt.subplot(2,2,1)
+		  ....
+		  解决overlap：plt.tight_layout()
+	             或: plt.subplots_adjust(left=??,
+										 right=??,
+										 bottom=??,
+										 top=??,
+										 wspace=??,
+										 hspace=??)
 	网格: plt.grid(True)
 	X,Y轴限制: plt.axis([xmin,xmax,ymin,ymax])
 	线宽: plt.plot(x,y,lw=??)

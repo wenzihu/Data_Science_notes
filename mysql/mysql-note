@@ -19,9 +19,10 @@
 							  col2 datatype2 NOT NULL)
 		在创建表格时可以指定默认值
 			CREATE TABLE name(col1 VARCHAR(10) DEFAULT 'unnamed')
+		若没有设置默认值，则系统默认数字为0，字符窗''
 	删除表：DROP TABLE name;
 数据：
-	插入：INSERT INTO table(col1,col2) VALUE(value1,value2),(value3,value4);
+	插入：INSERT INTO table(col1,col2) VALUE(value1,value2),(value11,value12);
 键：
 	主键：CREATE TABLE table(id INT NOT NULL, 
 							 name VARCHAR(10),
@@ -30,15 +31,38 @@
 		  可以直接在 id 一行最后写入 PRIMARY KEY 指定主键。
 
 数据类型：
-	CHAR(n)  固定长度字符串，长度不大于255。输入过长将被截断，输入不够补空格。
-	VARCHAR(n) 长度可变字符串，规定最大长度。
-	DECIMAL(n,m) n表示最大数据长度，m表示小数点后数据长度
-	  DECIMAL(5,2) 最大表示999.99 输入大于此值时默认设为999.99
-	FLOAT
-	DOUBLE 
-		区别：DECIMAL占用空间较大，但计算精确
-			  FLOAT/DOUBLE 空间小，但在7/15位会产生误差
+	数字型：
+		INT: max 4294967295
+		SMALLINT
+		TINYINT
+		MEDIUMINT
+		BIGINT
+		DECIMAL
+			DECIMAL(n,m) n表示最大数据长度，m表示小数点后数据长度
+			DECIMAL(5,2) 最大表示999.99 输入大于此值时默认设为999.99
+		NUMERIC
+		FLOAT
+		DOUBLE
+			区别：DECIMAL占用空间较大，但计算精确
+			      FLOAT/DOUBLE 空间小，但在7/15位会产生误差
+		BIT
+	字符型：
+		
+		CHAR(n)  固定长度字符串，长度不大于255。输入过长将被截断，输入不够补空格。
+		VARCHAR(n) 长度可变字符串，规定最大长度,不超过255字符
+		BINARY
+		BLOB
+		TINYBLOB
+		MEDIUMBLOB
+		LONGBLOB
+		TEXT
+		TINYTEXT
+		MEDIUMTEXT
+		LONGTEXT
+		ENUM
 
+Null:
+	
 
 SELECT:
 	SELECT col1,col2 FROM table; 选取指定列  （SELECT *选取全部列）
@@ -59,9 +83,9 @@ SELECT:
 								GROUP BY col1; 分组
 								LIMIT ?；      前?项(也可指定起始值和选择个数)
 								LIMIT 10，20   从第11开始取20个（从0计算）
-	SELECT MAX()  FROM 
-		   MIN()
-		   AVG()
+	SELECT MAX()  FROM			在使用groupby后既可以使用函数求同一组数据的avg,min,max...
+		   MIN()				 groupby后得到的avg,min,max为group个数
+		   AVG()				 不使用groupby得到的avg，min，max针对整列数据，返回一个数
 		   SUM()
 	       COUNT()
 	
@@ -93,7 +117,13 @@ Date Time
 	数据类型：
 		DATE：YYYY-MM-DD
 		TIME：HH:MM:SS
-		DATETIME: YYYY-MM-DD HH:MM:SS
+		DATETIME: YYYY-MM-DD HH:MM:SS 支持1000-01-01到9999-12-31
+		TIMESTAMP 支持1970-01-01 到2038-01-19 占用空间更少
+			用途:创建表时设置一栏数据类型timestamp，默认NOW()
+			每次INSERT数据时则会自动产生一个时间标签
+			或使用 chanegd_at TIMESTAMP DEFAULT NOW() ON UPDATE NOW()
+			这样每次更新时记录时间
+		YEAR
 	产生函数
 		CURDATE() 产生当前日期 DATE格式
 		CURTIME() 产生当前时间 TIME格式
@@ -110,3 +140,7 @@ Date Time
 		DATEDIFF(Day1,Day2) 计算Day1-Day2日期
 		DATE_ADD(DATE,interval n month/day/minute/second)
 		SELECT date1 + INTERVAL 1 MONTH + INTERVAL 2 DAY;
+
+
+Warnings:
+	SHOW warnings; 显示之前的警告
