@@ -213,3 +213,11 @@ Featrue engineering
 		cat_col = [col for col in df.columns if df[col].dtype == 'object']
 		df=pd.get_dummies(df,cat_col)
 
+=============
+Display
+=============
+	When working under jupyter notebook, show every column of a df
+		from IPython.display import display
+		pd.options.display.max_columns = None
+		display(df)
+
