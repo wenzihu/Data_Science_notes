@@ -1,6 +1,6 @@
 sklearn learning note
 
-1. Pre-processing 数据预处理
+1. Pre-processing
 	预处理库： from sklearn import preprocessing 
 	
 	Standardization(z-score normalization) 标准化
@@ -37,6 +37,22 @@ sklearn learning note
 	数据分割：
 		from sklearn.cross_validation import train_test_split
 		x_train,x_test,y_train,y_test = train_test_split(X,y,test_size=0.3)
+
+	One-hot-encoding
+		??????
+
+2. Feature selection
+	from sklearn import feature_selection
+	2.1 filter
+	2.2 wrapper
+	2.3 embedded
+		??regularization l0
+						 l1: lasso
+						 l2: ridge
+
+
+
+
 
 
 2. Process 通用流程 

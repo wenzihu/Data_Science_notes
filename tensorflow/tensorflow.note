@@ -17,6 +17,10 @@ Tensorflow
 	x = tf.constant(5)		可以是不同格式5，[5],[1,2,3]
 	y = tf.Variable([5])    可以是不同格式，但assign时要保证格式与数据类型相同
 	y = y.assign([6])       Variable格式数据初始化后可用y.assign设置值，一旦设置后变为tensor，不可更改
+	tf.placeholder(<type>)  在不确定输入是什么样子是的占位变量		
+		x = tf.placeholder(tf.int32)  需要指定格
+			在需要矩阵时传入矩阵形状tf.placeholder('float',[None, 10])
+		对于使用占位符的变量，在运行sess.run时可以增加feed_dict={x:20,y:30} 的方法传入值
 	在session中，可多次assign变量值：
 				assign1 = tf.assign(name,value)
 				sess.run(assign1)
@@ -31,8 +35,10 @@ Tensorflow
 	tf.zeros()
 	tf.reshape(matrix,[?,?])  改变矩阵形状
 	运算类：
-	tf.add()    计算两个输入的和，使用braodcasting，有些不同尺度可以相加
+	tf.add(x,y)    计算两个输入的和，使用braodcasting，有些不同尺度可以相加
 	tf.add_n()  输入tensor的list，计算所有的和
+	tf.sub(x,y)
+	tf.mul(x,y)
 	tf.matmul() 矩阵相乘
 	tf.multiply()  矩阵点乘
 	tf.abs()
@@ -46,3 +52,7 @@ Tensorflow
 	tf.random_gamma
 	tf.random_poisson
 	tf.random_uniform
+
+激活函数：
+	RELU tf.nn.relu()
+

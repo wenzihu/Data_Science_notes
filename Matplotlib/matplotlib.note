@@ -18,6 +18,7 @@ matplotlib note
 		.rc('figure', titlesize=???)  # fontsize of the figure title
 
 基本：
+	Working with jupyter notebooks: add %matplotlib inline
 	多图: plt.figure()
 		  plt.subplot(2,2,1)
 		  ....
@@ -29,18 +30,45 @@ matplotlib note
 										 wspace=??,
 										 hspace=??)
 	网格: plt.grid(True)
-	X,Y轴限制: plt.axis([xmin,xmax,ymin,ymax])
-	线宽: plt.plot(x,y,lw=??)
+	尺寸：plt.figure(figsize=(<width>,<height>)) # in inches
+	X,Y轴限制: plt.axis([xmin,xmax,ymin,ymax])%
+			   plt.xlim((<min>,<max>))
+			   plt.ylim((<min>,<max>))
+	Label: plt.xlabel('labelname')
+		   plt.ylabel('labelname'
+	Title: plt.title('Title name')
 	Legend:  plt.plot(x,y,label='????')
 			 plt.legend(loc='??')  ??=best 自动
 									  upper left/ right
 									  lower right/ center right
+									  (0.1,0.1): 指定legend左下角位置
 									  
-	Marker: plt.plot(x,y, marker='o',
+	Color: plt.plot(x,y,color='r') r=red,g=green,b=blue,y=yellow
+								   b=black ......
+	linewidth: plt.plot(x,y,lw=??, alpha=0.5) # lw=linewidth 
+												alpha for transparent
+	Marker: plt.plot(x,y, marker='o', # + * etc
 						  markersize=5,
 						  fillstyle = 'full',
-						  markeredgewidth=0.0)
+						  markeredgewidth=0.0,
+						  markeredgecolor='b',
+						  markerfacecolor='r')
 	Date x-axis: plt.gcf().autofmt_xdate()
+
+Object oriented:
+	第一种用法：
+	fig = plt.figure()  # create instance
+	axes1 = fig.add_axes([left_down_x,left_down_y, width, height]) # set size for axes
+	axes2 = fig.add_axes([?,?,?,?])
+	axes1.plot(x,y, label='??') 
+	axes1.set_xlabel()/set_ylabel()/set_title()
+	axes1.legend(loc='??')
+	axes1.set_xlim([?,?]) # set limit 
+	第二种用法：
+	fig, axes = plt.subplots(nrows=?, ncols=?)
+	axes[0].plot()   或   for sub_axes in axes: sub_axes.plot()
+	第二种方法更加自动化，不用每个都add_axes
+
 
 Hist:
 	plt.hist(data,
@@ -61,3 +89,5 @@ Bar:
 		  ax.set_ylabel()
 		  ax.set_xticks([p+1.5*width for p in pos1])  指定位置
 		  ax.set_xticklabels(labels)
+save figure:
+	fig.savefig('filename.png',/dpi=??) # jpg, png.... 
