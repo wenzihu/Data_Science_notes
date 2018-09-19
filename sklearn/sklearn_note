@@ -1,5 +1,11 @@
 sklearn learning note
 
+0. Splitting the data into trainning and test
+	from sklearn.cross_validation import train_test_split
+	X_train,X_test,Y_train,Y_test = 
+		train_test_split(X,y,test_size=0.25,random_state=33)
+
+
 1. Pre-processing
 	预处理库： from sklearn import preprocessing 
 	
@@ -50,38 +56,22 @@ sklearn learning note
 						 l1: lasso
 						 l2: ridge
 
-
-
-
-
-
-2. Process 通用流程 
-	加载数据：从文件或网页读入数据，多为DataFrame格式
-	整理数据：留下有用的feature，整理为X--n by m，y--n by 1 (n:样本数，m:特征数)
-	预处理：  标准化数据，拆分为训练组与测试组
-	选择模型：线性回归：model = sklearn.linear_model.LinearRegression()
-			  岭回归：  model = sklearn.linear_model.Ridge(alpha=?)
-			  贝叶斯-高斯：model = sklearn.naive_bayes.GassianNB()
+3. Models 
+	LinearRegression(线性回归)：model = sklearn.linear_model.LinearRegression()
+	RidgeRegression(岭回归)：  model = sklearn.linear_model.Ridge(alpha=?)
+	Bayes(贝叶斯-高斯)：model = sklearn.naive_bayes.GassianNB()
 			  多项式：  model = sklearn.naive_bayes.MultinomialNB()
-			  决策树分类： model = sklearn.tree.DecisionTreeClassifier()
-			  决策树回归： model = sklearn.tree.DecisionTreeRegressor()
-			  随机森林:model = sklearn.ensemble.RandomForestClassifier(n_estimators=??)
+	DecisionTree(决策树分类)： model = sklearn.tree.DecisionTreeClassifier()
+			    (决策树回归)： model = sklearn.tree.DecisionTreeRegressor()
+	RandomForest(随机森林):model = sklearn.ensemble.RandomForestClassifier(n_estimators=??)
 			           主要参数:n_estimators    
-			  支持向量机： model = sklearn.svm.SVC()
-			  K-mean(聚类):model = sklearn.cluster.KMeans(n_clusters=?, random_state=0).fit(x)
-			  KNN:		   model = sklearn.neighbors.KNeighborsClassifier()
+	GradientBoosting: model = sklearn.ensemble.GradientBoostingClassifier()
+	SVM(支持向量机)： model = sklearn.svm.SVC()
+	K-mean(聚类):model = sklearn.cluster.KMeans(n_clusters=?, random_state=0).fit(x)
+	KNN:		   model = sklearn.neighbors.KNeighborsClassifier()
 					       主要参数: K neighbors 数量
-			  降维：？？？？？
 
-	训练模型：model.fit(X_train,y_train)
-	预测：y_pred = model.predict(X_test)
-	验证：from sklearn.model_selection import cross_validate
-		  
-	查看结果：from sklearn.metrics import classification_report, confusion_matrix
-	print(confusion_matrix(y_test, y_pred))
-	print(classification_report(y_test,y_pred))
-
-3. Models 优化模型
+	Model Optimization(优化模型)
 	参数选择: grid search  
 		from sklearn.grid_search import GridSearchCV
 		param_grid = {'Para1':[0.1,1,10,100,1000], 'Para2':[1,0.1,0.01,0.001]}
@@ -90,5 +80,16 @@ sklearn learning note
 		之后的预测和普通模型一样
 		grid.best_params_ , grid_best_estimator_ 返回计算得到的最佳参数
 
-
+4. Process 通用流程
+	加载数据：从文件或网页读入数据，多为DataFrame格式
+	整理数据：留下有用的feature，整理为X--n by m，y--n by 1 (n:样本数，m:特征数)
+	预处理：  标准化数据，拆分为训练组与测试组
+	降维：？？？？？
+	选择模型
+	训练模型：model.fit(X_train,y_train)
+	预测：y_pred = model.predict(X_test)
+	验证：from sklearn.model_selection import cross_validate
+	查看结果：from sklearn.metrics import classification_report, confusion_matrix
+	print(confusion_matrix(y_test, y_pred))
+	print(classification_report(y_test,y_pred))
 

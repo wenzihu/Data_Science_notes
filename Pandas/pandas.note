@@ -179,8 +179,22 @@ Files IO
 				  读成chunks，在用df=pd.cancat([chunk for chunk in chunks], ignore_index=True)	将多个chunk链接起来
 
 ==================
-画图
+Visualization
 ==================
+	##import seaborn as sns then pandas plot will look like seaborn plots.
+	df['colname'].hist(bins=??)   histogram of column value
+	df['colname'].plot.hist(bins=??)
+					  .area(alpha=??) for transparant
+					  .bar(stacked=True/False)
+	df.plot.line(x=df.index, y='col2',figsize=(?,?))
+	df.plot.scatter(x='col1',y='col2',c='col3',cmap='coolwarm')  c for color
+									  s='col3'   s for size 
+	df.plot.hexbin(x='col1',y='col2',gridsize=??, cmap='??')
+	df['col'].plot.kde()   kernal density estimation plot
+
+
+
+
 	对于某列数据，如果是不同label,可用count = df.<column>.value_counts()统计不同label数据，然后用count.plot(kind='bar') kind 还可以为pie
 
 
