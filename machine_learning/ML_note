@@ -1,0 +1,89 @@
+Personal note for general machine learning techniques.
+
+1. Identify the problem -- Supervised		== regression
+											== classification
+												
+						-- Unsupervised		== clustering
+						-- Half supervised  
+2. Amount of data  -- > 10G ---> Distributed machine learning (hardoop,hive...)
+					  < 10G ---> Single machine 
+
+3. Feature engineering
+	3.1 Know the data--EDA(Exploratory Data Analysis)
+	3.2 Remove -- const
+			   -- Correlated 
+			   -- Unrelated (Id, name)
+	3.3 Pre-process 
+			-- Numerical  === Standarization: scale to a u=0, sigma=1 standard distribution
+						  === Normalize: Normalize value to [0-1]
+						  === Re-sample
+						  (need: regression,KNN,SVM,NN,cluster)
+						  (don't need: tree based, Bayes)
+			-- Categorical  === One hot encoding
+
+	3.4 Create new features
+	3.5 Missing value 
+
+4. Feature selection
+	4.1 Filter
+	4.2 Wrapper
+	4.3 Embedded  ????
+	4.4 Decomposition -- PCA
+					  -- LDA
+
+5. Model selection
+	5.1 Regression
+		5.1.1 Linear regression
+			median regression (robust)
+			5.1.1.1 LASSO regression (regularization) add punishment factor to reduce over fitting
+			5.1.1.2 Ridge regression  
+			Note: LASSO can set weight to 0, can use as feature selection.Good for interpretability.
+			  Ridge set weight to a small number. 
+		5.1.2 Rregression Tree
+			Random forest -- Easy to train, good robust
+			Gradient Boost Trees -- Hard to train, better result
+	
+	5.2 Classification
+		5.2.1 Logistic regression
+		5.2.2 SVM
+		5.2.3 Decision Tree
+		5.2.4 K nearest neighbors
+		
+	5.3 Clustering
+		K-mean
+
+	5.4 Tree based
+		5.4.1 Decision tree  --  works for reguression and classification
+		+-------------------------------+-----------------------------------+
+		|		Random Forest			|		Gradient Boost				|
+		+-------------------------------+-----------------------------------+
+		|			Bagging				|			Boosting				|
+		+-------------------------------+-----------------------------------+
+		|  Big trees to lower bias		|  Small trees to keep variance low	|
+		+-------------------------------+-----------------------------------+
+		|  More trees to lower variance	|  More trees to lower bias			|
+		+-------------------------------+-----------------------------------+
+		|		Fast, Easy tuning		|  Overfitting, slow, hard to train	|
+		|			Less overfit		|			Better Result			|
+		+-------------------------------+-----------------------------------+
+
+		Stacking: Use result from different models.
+				  Use logistic regression to blend them.
+
+
+
+
+
+6. Train, test and validation
+
+
+7. Result evaluation
+	p-value
+	Chi square 
+	confusion matrix  
+				+-----------------+-----------------+
+				| True Positives  | False Negatives |
+				+-----------------+-----------------+
+				| False Positives | True Negatives  |
+				+-----------------+-----------------+
+	ROC  /  AUC 
