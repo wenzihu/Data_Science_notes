@@ -131,6 +131,7 @@ datetime methods
 	df.applymap(function)  对df内每个元素实施function运算 类似S.map(function)
 	S0.corr(S1)  S0.cov(S1)  计算S0，S1的correlation 和 covariance
 	df.corr()  df.cov() 计算df每列之间的 correlation 和 covariance矩阵
+	loop through column of DataFrame: for index, row in df['col'].iteritems(): 
 
 ===================
 NaN

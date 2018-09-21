@@ -28,7 +28,7 @@ Personal note for general machine learning techniques.
 	4.1 Filter
 	4.2 Wrapper
 	4.3 Embedded  ????
-	4.4 Decomposition -- PCA
+	4.4 Decomposition -- PCA (Principal component analysis)
 					  -- LDA
 
 5. Model selection
@@ -39,21 +39,28 @@ Personal note for general machine learning techniques.
 			5.1.1.2 Ridge regression  
 			Note: LASSO can set weight to 0, can use as feature selection.Good for interpretability.
 			  Ridge set weight to a small number. 
-		5.1.2 Rregression Tree
-			Random forest -- Easy to train, good robust
-			Gradient Boost Trees -- Hard to train, better result
+		5.2.2 K-nearest-neighbors
+		5.2.3 Bayesian
 	
 	5.2 Classification
 		5.2.1 Logistic regression
 		5.2.2 SVM
 		5.2.3 Decision Tree
-		5.2.4 K nearest neighbors
+		5.2.4 K-nearest-neighbors
+		5.2.5 Bayesian
 		
 	5.3 Clustering
 		K-mean
+		Affinity Propagation
+		Hierarchical 
+		DBSCAN
 
 	5.4 Tree based
 		5.4.1 Decision tree  --  works for reguression and classification
+		5.4.2 Ramdom Rorest	 --  
+		5.4.3 Gradient Boost Trees  --  
+		
+		Compare:
 		+-------------------------------+-----------------------------------+
 		|		Random Forest			|		Gradient Boost				|
 		+-------------------------------+-----------------------------------+
@@ -69,12 +76,26 @@ Personal note for general machine learning techniques.
 
 		Stacking: Use result from different models.
 				  Use logistic regression to blend them.
-
+	
+	5.5 Neural Network
+		5.5.1 ANN  --  
+		5.5.2 CNN  --  Convolutional NN  ==  针对图像处理
+		5.5.3 RNN  --  recurent NN	 ==  时间递归
+				   --  recursive NN  ==  结构递归
+			LSTM
+			Seq2Seq
+		
 
 
 
 
 6. Train, test and validation
+
+7, Tuning
+
+
+
+
 
 
 7. Result evaluation
