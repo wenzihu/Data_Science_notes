@@ -178,6 +178,8 @@ Files IO
 			
 	超大文件处理：使用chunks = pd.read_csv(filename,iterator=True,chunksize=???)
 				  读成chunks，在用df=pd.cancat([chunk for chunk in chunks], ignore_index=True)	将多个chunk链接起来
+	Just to see the data: chunks = pd.read_csv('file', iterator=True)
+						  chunkdata = chunks.get_chunk(15)  
 
 ==================
 Visualization
