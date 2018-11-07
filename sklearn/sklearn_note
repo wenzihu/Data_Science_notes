@@ -93,3 +93,5 @@ sklearn learning note
 	print(confusion_matrix(y_test, y_pred))
 	print(classification_report(y_test,y_pred))
 
+	Pipeline: from sklearn.pipeline import Pipeline
+	pipeline = Pipeline([])

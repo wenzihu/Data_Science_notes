@@ -74,7 +74,6 @@ Python中的string操作
 	string[m:n]只string中从第m个字符到n-1个字符，并不是到第n个字符。
 	也可用string[:n]提取前n个字符或string[n:]提取第n个字符到最后一个字符。
 	String[-1]表示最后一个，[-2]表示倒数第二个
-	reverse: b = a[::-1]
 	可用for ??? in string: 对string中的每个字符做处理
 	in还可以用做判断，'string1' in 'string2' 判断string2中是否有string1，返回true或false。
   string相关函数：
@@ -90,9 +89,6 @@ Python中的string操作
 	string不可改写，如果要改写必须建立新的string。
 	string.split()    # 将一个string根据空格分隔为一个list里面的多个string
 	.split() 函数默认使用空格切分，但也可自行设置string.split(';')即可使用分号切分
-	string.isalnum()  tell if string only have a-z and 0-9
-	string.isalpha()
-	string.isdigit()
 
 %%%%%%%%%%%%%%%%%%%%%
 Python文件：
@@ -146,11 +142,8 @@ Python  List
 	flattern a list: a=[[1,2],[2,3]] ---> b=sum(a,[])  --> b=[1,2,2,3]
 	list[m:n]用法与string类似
 	filter: 对list中内容过滤 
-	unique list: list(set(a))
 			filter(lambda x:x>3, list_a) 保留list_a中满足lambda的元素
 			filter(None, list_a) 取出list_a中None元素
-	unique list of list: b_set = set(tuple(x) for x in a)
-						 b = [list(x) for x in b_set]
 	map: 对整个list进行某个函数运算
 			map(func,iterable)
 		    例如: a=[1,2,3,4,5]   y=map(lambda x:x**2, a)

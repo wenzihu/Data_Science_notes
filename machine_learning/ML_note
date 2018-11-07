@@ -13,6 +13,10 @@ Personal note for general machine learning techniques.
 	3.2 Remove -- const
 			   -- Correlated 
 			   -- Unrelated (Id, name)
+			   -- Outlier === Grubb's test
+						  === Dixon's Q test
+						  === Chauvenet's Criterion
+						  === Piere's Criterion
 	3.3 Pre-process 
 			-- Numerical  === Standarization: scale to a u=0, sigma=1 standard distribution
 						  === Normalize: Normalize value to [0-1]
@@ -99,7 +103,8 @@ Personal note for general machine learning techniques.
 
 
 7. Result evaluation
-	p-value
+	p-value, T-test, z-test, z scoring, Kurtosis, Central Limit theorem, IQR, 
+
 	Chi square 
 	confusion matrix  
 				+-----------------+-----------------+
@@ -108,3 +113,6 @@ Personal note for general machine learning techniques.
 				| False Positives | True Negatives  |
 				+-----------------+-----------------+
 	ROC  /  AUC 
+8. What's after
+	Deployment
+	New data: incremental learning.(partial_fit)
