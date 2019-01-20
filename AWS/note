@@ -1,0 +1,18 @@
+Computation
+	EC2
+
+
+Storage
+	S3 for Object(Bucket)
+		Images
+		Text files
+	EBS (Elastice Block Storage)
+		Note: EBS can only connect to one EC2
+		RDS (Ralational Database Services)
+		EC2 instance
+	EFS (Elastice File Storage)
+		Note: EFS can connect to multiple EC2	
+		Files
+Cost management
+	Trust adviser
+

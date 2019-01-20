@@ -94,6 +94,9 @@ Personal note for general machine learning techniques.
 
 
 6. Train, test and validation
+	Model regularization (constrain the model to prevent overfitting)
+	Cross validation
+	What is hyperparameter??
 
 7, Tuning
 
@@ -116,3 +119,17 @@ Personal note for general machine learning techniques.
 8. What's after
 	Deployment
 	New data: incremental learning.(partial_fit)
+
+
+
+Interview questions:
+
+Decision tree split standard (shang)
+missing value
+multicorrolation features
+type1 type2 error    type1 FP  type2 FN
+
+b value
+standarize why
+k mean
+p value

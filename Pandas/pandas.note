@@ -3,7 +3,9 @@
 ###########
 	from pandas import Series, DataFrame
 	import pandas as pd
-
+=============
+Basics
+=============
 	Series:
 	创建：obj = Series([2,3,1,4],index=['a','b','c','d'])
 		  obj.index 返回index列表
@@ -68,13 +70,20 @@ Sort
 	one hot encoding: df.get_dummies(data, columns=[col1,col2...]) 
 					  把col1 col2 的内容进行one hot encoding
 
+==============
+Random SELECT
+==============
+	Randomly select num rows in a column of dataframe:
+	np.random.choice(df['colname'], num)
 	
 ===============
 GROUP BY
 ===============
-	df1 = df.groupby('col1') 或 df1 = df.groupby(df['col1'])
-	返回DataFrameGroupby 类型，可用.size()计算每组group的数据量
-		可使用.sum() .mean()  .max()  .min()
+	df1 = df.groupby('col1') or df1 = df.groupby(df['col1'])
+	Return DataFrameGroupby data type，use .size() to calculate number of data in each group.
+	Also can use .sum() .mean()  .max()  .min()
+	After .mean() .sum() .max().... 变为series，index为group项，
+	可用.reset_index()变回dataframe，group项从index变回一列。
 ===============
 UNIQUE
 ===============
@@ -193,6 +202,7 @@ Visualization
 	df.plot.scatter(x='col1',y='col2',c='col3',cmap='coolwarm')  c for color
 									  s='col3'   s for size 
 	df.plot.hexbin(x='col1',y='col2',gridsize=??, cmap='??')
+	df.plot.box() # Box plot for each columns
 	df['col'].plot.kde()   kernal density estimation plot
 
 

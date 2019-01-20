@@ -1,0 +1,9 @@
+df.iplot(
+	kind='scatter',x='A',y='B',mode='markers',size=?)
+	kind='bar',x='A',y='B')
+	kind='box')
+	kind='hist')
+	kind='bubble',x='A',y='B',size='C')  # A,B,C are columns of df
+	kind='surface', colorscale='rdulbu')
+
+df.scatter_matrix()

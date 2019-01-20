@@ -1,8 +1,8 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-Python基础：
+Python Basics： 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-	单行注释：# 
-	多行注释：待注释句段使用三个但引号包含'''?????????'''
+	Single line comment：# 
+	Multiple line comment: 待注释句段使用三个但引号包含'''?????????'''
 	三引号也可在print中多段打印
 	dir(??)可查看一个类中可用函数  
 	dir()  列出当前有的变量
@@ -530,7 +530,10 @@ numpy
 	, rand, 
 	randint(start,end, num): 生成num个从 [start 到 end） 的随机数 
 	randn
-	
+	choice: 随机选取
+		b = np.random.choice(a, 10) 从a中随机选取10个数放到b中。
+
+
 	binomial
 	normal
 	beta

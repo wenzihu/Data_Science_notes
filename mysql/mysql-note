@@ -62,6 +62,16 @@
 		ENUM
 
 Null:
+
+Buildin Functions:
+	MAX
+	MIN
+	AVG
+	COUNT
+	ROUND(NUM, 2) Example: ROUND(123.1122,2) -> 123.11
+						   ROUND(123.1122,-2) -> 100.0
+	SQRT
+	POWER(x,2)
 	
 
 SELECT:
@@ -113,6 +123,11 @@ String Function:
 	SELECT UPPER()/LOWER()
 
 
+
+WHERE vs HAVING:
+HAVING work after GROUP BY, can be work on max(),min(),avg(). 
+select_expr can give an alias using AS alias_name, alias name can be used in ORDER BY, GROUP BY, HAVING, but not in WHERE.
+
 Date Time
 	数据类型：
 		DATE：YYYY-MM-DD
@@ -144,3 +159,11 @@ Date Time
 
 Warnings:
 	SHOW warnings; 显示之前的警告
+
+
+Advanced:
+	IF: SELECT IF(condition, case1, case0) <=> IF condition then case1 else case0
+
+	Restrict access to table:
+	Grand SELECT(,INSERT, DELETE) ON database.table TO user@hostname;
+

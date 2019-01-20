@@ -7,7 +7,7 @@ sklearn learning note
 
 
 1. Pre-processing
-	预处理库： from sklearn import preprocessing 
+	from sklearn import preprocessing 
 	
 	Standardization(z-score normalization) 标准化
 		公式：z=(x-mean)/std

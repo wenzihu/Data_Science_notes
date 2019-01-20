@@ -1,0 +1,93 @@
+matplotlib note
+
+
+设置默认字体，字号，线宽
+	import matplotlib
+	matplotlib.rc('xtick',labelsize=30)
+	font = {'family':'normal',
+			'weight':'boad',
+			'size': 30}
+	matplotlib.rc('font', **font)
+	matplotlib.rc('lines', lw=2)
+		.rc('font', size=???)          # controls default text sizes
+		.rc('axes', titlesize=???)     # fontsize of the axes title
+		.rc('axes', labelsize=???)    # fontsize of the x and y labels
+		.rc('xtick', labelsize=???)    # fontsize of the tick labels
+		.rc('ytick', labelsize=???)    # fontsize of the tick labels
+		.rc('legend', fontsize=???)    # legend fontsize
+		.rc('figure', titlesize=???)  # fontsize of the figure title
+
+基本：
+	Working with jupyter notebooks: add %matplotlib inline
+	多图: plt.figure()
+		  plt.subplot(2,2,1)
+		  ....
+		  解决overlap：plt.tight_layout()
+	             或: plt.subplots_adjust(left=??,
+										 right=??,
+										 bottom=??,
+										 top=??,
+										 wspace=??,
+										 hspace=??)
+	网格: plt.grid(True)
+	尺寸：plt.figure(figsize=(<width>,<height>)) # in inches
+	X,Y轴限制: plt.axis([xmin,xmax,ymin,ymax])%
+			   plt.xlim((<min>,<max>))
+			   plt.ylim((<min>,<max>))
+	Label: plt.xlabel('labelname')
+		   plt.ylabel('labelname'
+	Title: plt.title('Title name')
+	Legend:  plt.plot(x,y,label='????')
+			 plt.legend(loc='??')  ??=best 自动
+									  upper left/ right
+									  lower right/ center right
+									  (0.1,0.1): 指定legend左下角位置
+									  
+	Color: plt.plot(x,y,color='r') r=red,g=green,b=blue,y=yellow
+								   b=black ......
+	linewidth: plt.plot(x,y,lw=??, alpha=0.5) # lw=linewidth 
+												alpha for transparent
+	Marker: plt.plot(x,y, marker='o', # + * etc
+						  markersize=5,
+						  fillstyle = 'full',
+						  markeredgewidth=0.0,
+						  markeredgecolor='b',
+						  markerfacecolor='r')
+	Date x-axis: plt.gcf().autofmt_xdate()
+
+Object oriented:
+	第一种用法：
+	fig = plt.figure()  # create instance
+	axes1 = fig.add_axes([left_down_x,left_down_y, width, height]) # set size for axes
+	axes2 = fig.add_axes([?,?,?,?])
+	axes1.plot(x,y, label='??') 
+	axes1.set_xlabel()/set_ylabel()/set_title()
+	axes1.legend(loc='??')
+	axes1.set_xlim([?,?]) # set limit 
+	第二种用法：
+	fig, axes = plt.subplots(nrows=?, ncols=?)
+	axes[0].plot()   或   for sub_axes in axes: sub_axes.plot()
+	第二种方法更加自动化，不用每个都add_axes
+
+
+Hist:
+	plt.hist(data,
+			 bins=[10,20,30],	
+			 rwidth=0.4,		# 间隔
+			 alpha=0.5)			# 透明度
+	多组数据用:plt.hist([data1,data2,data3],....)
+
+Bar:
+	plt.bar(x,y,
+			width=0.4,
+			bottom=??)  stack时使用
+	plt.xticks(x,[label1,label2,...])
+	多组：width = 0.2
+		  fig.ax = plt.subplots()
+		  plt.bar(pos1,					   data1,width, label='??')
+		  plt.bar([p+width for p in pos1], data2,width, label='??')
+		  ax.set_ylabel()
+		  ax.set_xticks([p+1.5*width for p in pos1])  指定位置
+		  ax.set_xticklabels(labels)
+save figure:
+	fig.savefig('filename.png',/dpi=??) # jpg, png.... 
