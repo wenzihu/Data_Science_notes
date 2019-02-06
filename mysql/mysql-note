@@ -1,36 +1,53 @@
-连接server数据库：mysql -h<host> -u<username> -p<password> 注：-h -u -p 后面没有空格
-连接本机数据库：mysql -hroot -p 输入密码
-显示信息：
-	SELECT @@hostname;	显示server名称
-	USE database1;		选择指定数据库 
-	SELECT database();	显示正在使用的database
-	SHOW WARNINGS;		显示警告信息
+Connect server database: mysql -h<host> -u<username> -p<password>  Note:no space after -h -u -p  
+Connect local database: mysql -hroot -p then imput your password
 
-	SHOW databases;		显示server上有的数据库
-	SHOW tables;		选择数据库后显示所有表
-	DESC table1;		查看表结构(类似：SHOW COLUMNS FROM table;)
-数据库： 
-	创建：CREAT DATABASE name;
-	删除：DROP DATABASE name;
-表：
-	创建表：CREATE TABLE name(col_name datatype, col_name1, datatype2);
+Basic information
+	SELECT @@hostname;	Show server name
+	USE database1;		Choose database
+	SELECT database();	Show in use database
+	SHOW WARNINGS;		Show warnings
+
+	SHOW databases;		Show all databases on server
+	SHOW tables;		Show all tables in selected database
+	DESC table1;		Show table structure(similar to：SHOW COLUMNS FROM table;)
+
+Databases： 
+	Creat database: CREAT DATABASE name;
+	Delete database: DROP DATABASE name;
+Table:
+	Create table: CREATE TABLE name(col_name datatype, col_name1, datatype2);
 		若创建表时指定某列 NOT NULL则此列必须有值才行。
 			CREATE TABLE name(col1 datatype1 NOT NULL,
 							  col2 datatype2 NOT NULL)
 		在创建表格时可以指定默认值
 			CREATE TABLE name(col1 VARCHAR(10) DEFAULT 'unnamed')
 		若没有设置默认值，则系统默认数字为0，字符窗''
-	删除表：DROP TABLE name;
-数据：
-	插入：INSERT INTO table(col1,col2) VALUE(value1,value2),(value11,value12);
-键：
-	主键：CREATE TABLE table(id INT NOT NULL, 
+		Common constraints: NOT NULL, DEFAULT, PRIMERY/FOREIGN KEY, UNIQUE, CHECK, INDEX
+	Drop table: 
+		DROP TABLE name;   Careful, will delete whole table.
+	TRUNCATE TABLE table_name:
+		Remove all rows in table, cannot rollback. 
+	Alter:
+		Add delete or modify columns in a existing table.
+			ALTER TABLE talbe_name
+			ADD new_column datatype;    /DROP COLUMN column_name:
+			
+	
+	Insert data: 
+		INSERT INTO table(col1,col2) VALUE(value1,value2),(value11,value12);
+	UPDATE: 
+		UPDATE talbe SET col1=newvalue WHERE ???;
+	DELETE:
+		DELETE FROM table WHERE ??;
+		DELETE FROM table;  !!!!危险 ，将删除全部数据
+Keys: 
+	Primary Keys: CREATE TABLE table(id INT NOT NULL, 
 							 name VARCHAR(10),
 							 PRIMARY KEY(id));
 		  可在主键后使用AUTO_INCREMENT 使其自动增加。
 		  可以直接在 id 一行最后写入 PRIMARY KEY 指定主键。
 
-数据类型：
+Data Type：
 	数字型：
 		INT: max 4294967295
 		SMALLINT
@@ -63,13 +80,19 @@
 
 Null:
 
-Buildin Functions:
+Aggregate Functions:
 	MAX
 	MIN
 	AVG
 	COUNT
+	SUM
+	FIRST
+	LAST
+Math functions:
+	ABS, SIN,COS, ASIN,ACOS,TAN, ATAN,EXP
 	ROUND(NUM, 2) Example: ROUND(123.1122,2) -> 123.11
 						   ROUND(123.1122,-2) -> 100.0
+	CEILING, FLOOR, LOG, LOG10
 	SQRT
 	POWER(x,2)
 	
@@ -80,6 +103,8 @@ SELECT:
 								WHERE id IN (1,2,4);
 								WHERE id BETWEEN 2 AND 6;
 								WHERE name LIKE "A%" ; 以A开头
+												"[abc]%" ;a或b或c开头
+												"[!abc]%" ;不以a或b或c开头
 												"%A" ; 以A结尾
 												"%A%"; 包含A
 												不挑大小写
@@ -102,12 +127,6 @@ SELECT:
 	SELECT DISTINCT col1,col2 FROM  选取不重复的项
 	
 	SELECT col1 AS name,col2 AS age FROM.......     显示时使用重名名
-UPDATE:
-	UPDATE talbe SET col1=newvalue WHERE ???;
-
-DELETE:
-	DELETE FROM table WHERE ??;
-	DELETE FROM table;  !!!!危险 ，将删除全部数据
 
 File:
 	在sql中运行source filename.sql
@@ -122,7 +141,10 @@ String Function:
 	SELECT CHAR_LENGTH(string);         计算字符串长度
 	SELECT UPPER()/LOWER()
 
-
+JOIN:
+	SELECT table1.col1,table2.col2 FROM table1 JOIN table2 on table1.col4=table2.col5;
+	Types of join: Join(inner), LEFT JOIN, RIGHT JOIN, FULL OUTER JOIN
+	Cartesian join: select col1,col2 from table1,table2; (Cross join)
 
 WHERE vs HAVING:
 HAVING work after GROUP BY, can be work on max(),min(),avg(). 
@@ -151,7 +173,7 @@ Date Time
 	Format
 		DATE_FORMAT(date,format);  format 可以是各种选择的组合
 		例如：DATE_FORMAT(NOW(),'%Y %M %D - %W');详细见文档 
-	计算：
+		计算：
 		DATEDIFF(Day1,Day2) 计算Day1-Day2日期
 		DATE_ADD(DATE,interval n month/day/minute/second)
 		SELECT date1 + INTERVAL 1 MONTH + INTERVAL 2 DAY;
@@ -165,5 +187,27 @@ Advanced:
 	IF: SELECT IF(condition, case1, case0) <=> IF condition then case1 else case0
 
 	Restrict access to table:
-	Grand SELECT(,INSERT, DELETE) ON database.table TO user@hostname;
+		Grand SELECT(,INSERT, DELETE) ON database.table TO user@hostname;
+		REVOKE ??? 
+	
+	Trigger: 
+		CREATE TRIGGER name
+		BEFORE/AFTER INSERT/UPDATE....
+		ON table
+		FOR EACH ROW
+		.....
+	Procedure:
+		CREATE PROCEDURE name @parameter1 type1, @parameter2 type2
+		()
+		AS
+		BEGIN
+		SQL STATEMENT 
+		END
+		Then when you want to run the procedure: EXEC name;
 
+	
+	VIEW: Virtual table from other tables.
+		CREATE VIEW name AS (SELECT .....FROM .....;)
+		Updating view: CREATE OR REPLACE VIEW .....
+	NVL functions: convert null value into real values.(Only in Oracle)
+		SELECT NVL(col,value) from table;   fill null in col with value.

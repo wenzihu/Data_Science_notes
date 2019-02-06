@@ -12,3 +12,4 @@ rugplot(df['col1']) 一维密度图，在每个数据出现的地方画一条竖
 
 对于分类数据
 	barplot()
+heatmap(df.corr()) plot correlations within a dataframe.

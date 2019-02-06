@@ -39,7 +39,8 @@ Basics
 SELECT
 ===========
 	df[df.A > 0]   类似  SELECT * FROM df WHERE A > 0
-		  多重选择  df[(df.A>3) & (df.A<5)]
+		  Multiple conditions: df[(df.A>3) & (df.A<5)]   
+							   df[(df.A>3) | (df.A<5)]  
 	      isin(): df[df.A isin(['one','two'])] 类似
 				  SELECT * FROM df WHERE A in ('one','two') 
 ==========
@@ -173,10 +174,12 @@ Files IO
 	csv  文件：data = pd.read_csv(filename,sep = '??')
 			   可用参数：
 				index_col=['key1','key2']			 
+				usecols=['col1','col2']  only read selected column
 				names = ['a','b','c'] 设定读取后的column name
 				header = n  取第n行作column name
 				skiprows=[m,n,p] 跳过第几行
 				skiprows=n  跳过前n行
+				skipfooter=n   Skip last n rows
 				na_values=['str1'] 或 {'col1':'str1'} 当文件为str1时读取为NaN 
 				nrows = n 只读取n行数据
 
