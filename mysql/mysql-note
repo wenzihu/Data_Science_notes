@@ -108,6 +108,7 @@ SELECT:
 												"%A" ; 以A结尾
 												"%A%"; 包含A
 												不挑大小写
+										   NOT like # similar usage
 								搜索这两个特殊字符可用\% 和\_
 												Note: %表示任意字符
 													  _表示单一字符

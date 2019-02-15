@@ -1,0 +1,25 @@
+Works in memory, work with Cassandra, AWS S3, HDFS...
+
+RDD: Resilient Distributed Dataset
+Actions: First: Return first element
+		 Collect: Return all elements of RDD as array
+		 Count: Return number of elements 
+		 Take: Return first n elements
+		 Top()
+		 sum()
+		 mean()
+		 stdev()
+Trasformations:
+		 RDD.filter()
+		 RDD.map()      pandas.apply()
+		 RDD.flatmap()
+		 RDD.sample(withReplacement=True, 0.25)
+		 RDD.union(rdd) append rdd to RDD
+		 RDD.distinct()  remove duplicates in rdd
+		 RDD.sortBy(lambda x: x, ascending=False) 
+		 RDD.reduce()			groupby()
+		 RDD.reduceByKey()
+
+Transformation:  Spark operations produces RDDs.
+Action:  Spark operations that produces a local object.
+Spark job: Sequence of transformations on data with a final action.		

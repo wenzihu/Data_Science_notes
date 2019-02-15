@@ -158,12 +158,17 @@ From paper "Using random forest to learn imbalanced data".
 
 
 
-Decision tree split standard (shang)
+Decision tree split standard (shang) sklearn parameter criterion='gini' / 'entropy' to evaluate homogeneity
 missing value
 multicorrolation features
+correlated features: 1. PCA, 2. Lasso Regularision
 type1 type2 error    type1 FP  type2 FN
 
 b value
-standarize why
-k mean
+standarize (x-mean)/sigma turn data into normal distribution
+normalize:  (x-xmin)/(xmax-xmin) turn data into [0-1]
+
+k mean: Use elbow method to determin K (plot k-Sum(D) curve and find "elbow")
 p value
+chi square
+

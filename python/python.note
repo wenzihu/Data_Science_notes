@@ -93,6 +93,7 @@ Python中的string操作
 	string.isalnum()  tell if string only have a-z and 0-9
 	string.isalpha()
 	string.isdigit()
+	ord(char): turn charector into ascii number , reverse is chr(num)
 
 %%%%%%%%%%%%%%%%%%%%%
 Python文件：
@@ -204,8 +205,11 @@ Python set
 %%%%%%%%%%%%%%%%%%%%%%%%%
 	Collection of unique elements.
 	a={1,2,3,4,4,4,5,5} 返回{1,2,3,4,5}
-	增加元素; a.add(6)
-
+	Add element: a.add(6)
+	Remove element:
+		a.remove(5) # if 5 not in a, raise error
+		a.discard(5) # if 5 not in a, don't raise error
+		a.pop() # return and remove the first element of set 
 
 
 
