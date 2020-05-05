@@ -11,9 +11,10 @@ Personal note for general machine learning techniques.
 3. Feature engineering
 	3.1 Know the data--EDA(Exploratory Data Analysis)
 	3.2 Remove -- const
-			   -- Correlated 
+			   -- Correlated (seaborn correlation heatmap)
 			   -- Unrelated (Id, name)
-			   -- Outlier === Grubb's test
+			   -- Outlier == Box plot
+						  === Grubb's test
 						  === Dixon's Q test
 						  === Chauvenet's Criterion
 						  === Piere's Criterion
@@ -28,16 +29,20 @@ Personal note for general machine learning techniques.
 	3.4 Create new features
 	3.5 Missing value 
 
-4. Feature selection
+4. Feature selection / Dimension reduction 
 	4.1 Filter
 	4.2 Wrapper
 	4.3 Embedded  ????
-	4.4 Decomposition -- PCA (Principal component analysis)
+	4.4 Decomposition -- PCA (Principal component analysis) (dimension reduction)
 					  -- LDA
 
 4.5 评价函数
-	RMSE: More sensitive to outliers, if not much outlier data use this.  
-	MAE: Less sensitive to outliers, if more outlier data use this.
+	RMSE: Root mean square error. sqrt(sum((yi-yii)^2) / n)
+		  More sensitive to outliers, if not much outlier data use this.  
+		  
+	MAE: Mean absolute error.   sum(abs(yi-yii)) / N 
+		 Less sensitive to outliers, if more outlier data use this.
+		 
 
 5. Model selection
 	5.1 Regression
@@ -119,6 +124,11 @@ Personal note for general machine learning techniques.
 				+-----------------+-----------------+
 				| False Positives | True Negatives  |
 				+-----------------+-----------------+
+		Accuracy  = (TP + TN) / (TP+TN+FP+FN)  --- Percentage of correct prediction
+		Precision = TP / (TP+FP)               --- Out of all predicted positive, how many are true   
+		Recall = TP / (TP+FN)                  --- Out of all real positive, how many are predicted
+		F1 score = 2 * (Precision * Recall) / (Precision + Recall)
+
 	ROC  /  AUC 
 8. What's after
 	Deployment
@@ -160,7 +170,16 @@ From paper "Using random forest to learn imbalanced data".
 
 Decision tree split standard (shang) sklearn parameter criterion='gini' / 'entropy' to evaluate homogeneity
 missing value
-multicorrolation features
+feature selection(dimension reduction)
+	PCA(Principal component analysis)
+		Use on independent variables
+	LDA(Linear discriminant analysis)
+		Use on independent and dependent variables.
+		create new axis projecting data onto , maximizing d^2/(s1^2+s2^2) where d is distance between mean, s for scatter.
+	CCA(Canonical correlation analysis)
+	NMF(Non-negative matrix factorization)
+time series data
+multicorrolation featurea(LDA)
 correlated features: 1. PCA, 2. Lasso Regularision
 type1 type2 error    type1 FP  type2 FN
 
@@ -172,3 +191,8 @@ k mean: Use elbow method to determin K (plot k-Sum(D) curve and find "elbow")
 p value
 chi square
 
+parameter tuning: Grid search 
+				  Random Search
+				  Bayesian optimization
+how to decide if you should retrain your model 
+Identify common drugs from list of drugs: TF-IDF

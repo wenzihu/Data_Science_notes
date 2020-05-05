@@ -180,9 +180,11 @@ Python dictionary
 	key 和 value配对存储，a = dict() # 创建空的dictionary 或使用a = {}
 	使用dict['key'] = value增加内容
 	统计时常用aaa['key']= aaa.get(key,0)+1 即查看aaa中是否有key，如果没有则置零后加			一，如果有则取值后加一
-	使用dict.keys()生成key的list，用dict.values()生成value的list，或使用dict.items()
-	在dict中循环，使用for key in dict 之后使用dict[key]调取相应的value
-	也可食用 for aaa,bbb in dict.items()，即可让key和value同时在dict中轮询
+	dict.keys()   generate list of keys
+	dict.values() generate list of value
+	dict.items()  generate list of key-value pair tuples
+	Looping dict，使用for key in dict 之后使用dict[key]调取相应的value
+	Or use: for aaa,bbb in dict.items():，即可让key和value同时在dict中
 
 %%%%%%%%%%%%%%%%%%%%%
 Python tuple
@@ -190,7 +192,7 @@ Python tuple
 	和list很像，区别: 不能更改，使用（）表示。
 	利用dir（tuple）即可查看有何可用函数（只有两个函数）
 	优点：运算速度快，对于不会变的列表或暂时使用的变量建议用tuple
-	可用（a,b）=(1,2)同时对a，b赋值（只能最多2个）
+	可用（a,b）=(1,2)同时对a，b赋值
 	tuple可以比大小 (2,3,4)>(2,5,4)会返回fault
 	使用a= dict.items()返回list a 后，可以对a进行sort，sort by key
 	内置函数sorted（）输入list，输出sort后的list

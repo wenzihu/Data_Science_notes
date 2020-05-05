@@ -1,0 +1,62 @@
+General NN
+
+Activation function, ReLu,tanh > sigmoid because tanh have a centered data around 0, mostly just ReLu, or leaky reLu
+	Exception: for binary use sigmoid for output layer, because out put you would expect 0-1 for classification.
+Initial value: random, not 0. rand() * 0.01 (use small initial value to avoid fall into tanh activation function flat area)
+
+Convolution network
+Using different size of filter to convolute with input image. Can reduce number of total parameters.
+Process: Image size m * m * 3  
+		 Filter size f * f * l 
+		 Padding size = p
+		 Stride = s
+		 Output size: (m+2p-f)/s + 1 * (m+2p-f)/s * l
+		 After many layers size of image reduce dramaticly while number of layers increase.
+	Many layers, at last flat the last layer and use logistic regression or softmax depending on type of problem.
+
+Typical Layers:
+Conv: Purpose: feature detection
+	  parameters: filter size, padding, stride, depth
+Pooling: Max pooling (Don't know why) / Average pooling/ ...
+	  Parameters: filter size, stride. Usually no padding.
+Fully connected
+	
+Dropout
+
+Some don't count pool layer as a layer. Treat layer with parameters as a layer. 
+
+Simple example:
+	Input 32*32*3 -> conv1(28*28*6) -> maxpool(14*14*6) -> conv2(10*10*16) 
+	-> maxpool(5*5*16) -> Flatten(400) 
+	-> FullyConnect(100) -> FullyConnect(84) 
+	-> Softmax Output(10?)
+Rull of thumb: 
+	1. Use existing configuration
+	2. Activation size reduce gradually
+
+Example of existig networks:
+	LeNet(5?), 
+	AlexNet, 
+	Inception16 , 19: 
+		Inception block: stack different filter size result together as output
+		Inorder to save computation, use bottlte net layer.
+			use 1*1 -> (1*1*? concat 3*3*? concat 5*5*?)
+		Side branch: 
+	ResNet(>100 layers)
+		Have residule blocks. Jump layers.
+Note: One by one convolution: can reduce number of channels (increase or reduce number of features) add non-linearality
+
+Transfer learning:
+	Use existing trained model, use existing parameters to implement into your data. Replace the last softmax layer and only retrain the weights in the last layer.
+	Depending on how much is your dataset and similarity to the original dataset, select how many layers to unfreeze.
+
+Data Augmentation:
+	1. flip left-right
+	2. Random cropping
+	3. Rotation, shearing
+	4. Color shifting
+	5. PCA color augmentation??
+
+Ensembling of nn
+10 Crops 
+Good for competition, don't use a lot in production.

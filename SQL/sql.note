@@ -1,4 +1,5 @@
-Connect server database: mysql -h<host> -u<username> -p<password>  Note:no space after -h -u -p  
+Connect server database: mysql -h<host> -u<username> -p<password>  
+						 Note:no space after -h -u -p  
 Connect local database: mysql -hroot -p then imput your password
 
 Basic information
@@ -148,8 +149,13 @@ JOIN:
 	Cartesian join: select col1,col2 from table1,table2; (Cross join)
 
 WHERE vs HAVING:
-HAVING work after GROUP BY, can be work on max(),min(),avg(). 
-select_expr can give an alias using AS alias_name, alias name can be used in ORDER BY, GROUP BY, HAVING, but not in WHERE.
+	HAVING work after GROUP BY, can be work on max(),min(),avg(). 
+	select_expr can give an alias using AS alias_name, alias name can be used in ORDER BY, GROUP BY, HAVING, but not in WHERE.
+
+UNION, INTERSECT, EXEPT:
+	UNION: Combine the result of 2 seperate SELECT.
+	INTERSECT: Find the common rows in 2 seperate SELECT.
+	EXEPT: Find result in 1st SELECT but not in 2nd SELECT.
 
 Date Time
 	数据类型：
@@ -186,6 +192,13 @@ Warnings:
 
 Advanced:
 	IF: SELECT IF(condition, case1, case0) <=> IF condition then case1 else case0
+	CASE: SELECT CASE
+					WHEN condition1 THEN result1
+					WHEN condition2 THEN result2
+					ELSE result3
+				 END AS alias
+		   FROM table;
+
 
 	Restrict access to table:
 		Grand SELECT(,INSERT, DELETE) ON database.table TO user@hostname;
@@ -210,5 +223,26 @@ Advanced:
 	VIEW: Virtual table from other tables.
 		CREATE VIEW name AS (SELECT .....FROM .....;)
 		Updating view: CREATE OR REPLACE VIEW .....
+	
+	WITH: Similar to view, like create a one-time view
+		  WITH name AS (SELECT .....)
+		  SELECT .... FROM name ..... ;
+
 	NVL functions: convert null value into real values.(Only in Oracle)
 		SELECT NVL(col,value) from table;   fill null in col with value.
+
+	Explain what is many to many relationship.
+
+Analytic functions:(T-SQL)
+	CUME_DIST
+	FIRST_VALUE
+	LAG
+	LEAD
+	PERCENTILE_COUNT
+	PERCENTILE_DISC
+	PERCENTILE_RANK
+
+
+Common problems:
+1. Top n from each group:
+	
